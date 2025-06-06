@@ -8,18 +8,40 @@ NutriSearch is a web application designed to help New Zealand consumers plan the
 
 ## Project Structure
 
-`
+```
 NutriSearch/
-├── index.html                          # Home page
+├── index.html                          # Home page 
 ├── pages/                              # Additional HTML pages
-├── scripts/                            # JavaScript files
-├── css/                                # Stylesheets
-│   ├── base/                           # Base styles and variables
-│   ├── components/                     # Reusable components
+│   ├── meal-planner.html               # Meal planning interface 
+│   ├── nutritional-search.html         # Food search by nutrition 
+│   └── settings.html                   # Settings and profile management 
+├── scripts/                            # JavaScript files 
+│   ├── common.js                       # Shared functionality across pages
+│   ├── home.js                         # Home page specific functionality
+│   ├── meal-planner.js                 # Meal planner logic and interactions
+│   ├── nutritional-search.js           # Search functionality and filtering
+│   └── settings.js                     # Settings page functionality
+├── css/                                # Stylesheets 
+│   ├── styles.css                      # Main stylesheet (imports all components)
+│   ├── base/                           # Foundation styles
+│   │   ├── variables.css               # CSS custom properties and theme colors
+│   │   └── base.css                    # Reset, typography, base elements
+│   ├── components/                     # Reusable UI components
+│   │   ├── buttons.css                 # Button styles and interactions
+│   │   ├── forms.css                   # Form elements and inputs
+│   │   ├── header.css                  # Header and navigation styling
+│   │   ├── cards.css                   # Card components for meals/foods
+│   │   └── modals.css                  # Modal dialogs and overlays
 │   ├── layout/                         # Page-specific layouts
-│   └── utilities/                      # Utility classes
-└── README.md                           # This file
-`
+│   │   ├── home.css                    # Home page grid and hero section
+│   │   ├── meal-planner.css            # Meal planner interface layout
+│   │   ├── nutritional-search.css      # Search page sidebar + main layout
+│   │   └── settings.css                # Settings page organization
+│   └── utilities/                      # Helper classes and responsive design
+│       ├── responsive.css              # Media queries for all breakpoints
+│       └── utilities.css               # Utility classes and helpers
+└── README.md                           # Project documentation
+```
 
 ## Features
 
