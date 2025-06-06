@@ -1,0 +1,584 @@
+/* ==========================================================================
+   NutriSearch Main Stylesheet
+   Smart nutrition planning for New Zealand consumers
+   
+   This file imports all CSS components in the correct order to create
+   a cohesive design system for the NutriSearch application.
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS IMPORT ORDER
+   
+   The order of imports is crucial for proper CSS cascade:
+   1. Variables and custom properties first
+   2. Base styles and resets
+   3. Component styles
+   4. Layout styles  
+   5. Utility classes last (highest specificity)
+   ========================================================================== */
+
+/* ==========================================================================
+   FOUNDATION STYLES
+   Variables, custom properties, and base styling
+   ========================================================================== */
+
+/* CSS Custom Properties - Design tokens and theme variables */
+@import url('./base/variables.css');
+
+/* Base styles - Typography, resets, and fundamental elements */
+@import url('./base/base.css');
+
+/* ==========================================================================
+   COMPONENT STYLES
+   Reusable UI components and interactive elements
+   ========================================================================== */
+
+/* Button system - All button variants and states */
+@import url('./components/buttons.css');
+
+/* Form controls - Inputs, selects, toggles, and validation */
+@import url('./components/forms.css');
+
+/* Card components - Content containers and information display */
+@import url('./components/cards.css');
+
+/* Header and navigation - Site branding and menu systems */
+@import url('./components/header.css');
+
+/* Modal dialogs - Overlays, popups, and interactive dialogs */
+@import url('./components/modals.css');
+
+/* ==========================================================================
+   LAYOUT STYLES
+   Page-specific layouts and structural components
+   ========================================================================== */
+
+/* Home page layout - Hero section, navigation cards, and stats */
+@import url('./layout/home.css');
+
+/* Meal planner layout - 3x2 control grid and meal generation */
+@import url('./layout/meal-planner.css');
+
+/* Nutritional search layout - Sidebar profiles and search interface */
+@import url('./layout/nutritional-search.css');
+
+/* Settings page layout - Profile management and app configuration */
+@import url('./layout/settings.css');
+
+/* ==========================================================================
+   UTILITY CLASSES
+   Helper classes and responsive design system
+   ========================================================================== */
+
+/* Responsive design - Mobile-first breakpoints and adaptive layouts */
+@import url('./utilities/responsive.css');
+
+/* Utility classes - Spacing, typography, colors, and common patterns */
+@import url('./utilities/utilities.css');
+
+/* ==========================================================================
+   GLOBAL OVERRIDES AND FIXES
+   Application-wide adjustments and browser compatibility
+   ========================================================================== */
+
+/* Ensure smooth scrolling for the entire application */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scrolling on small screens */
+body {
+  overflow-x: hidden;
+}
+
+/* Enhanced focus management for better accessibility */
+*:focus {
+  outline-offset: 2px;
+}
+
+/* Improve text rendering on all browsers */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   Optimized styling for print media
+   ========================================================================== */
+
+@media print {
+  /* Hide non-essential elements when printing */
+  .no-print,
+  button:not(.print-keep),
+  .btn:not(.print-keep),
+  nav,
+  .header .nav-links,
+  .theme-toggle,
+  .modal,
+  .notification,
+  .tooltip {
+    display: none !important;
+  }
+  
+  /* Optimize colors for print */
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* Ensure proper link handling */
+  a,
+  a:visited {
+    text-decoration: underline;
+    color: #000 !important;
+  }
+  
+  /* Add URL after links for reference */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 80%;
+  }
+  
+  /* Prevent page breaks in important content */
+  .print-together,
+  .card,
+  .nutrition-item,
+  .meal-card {
+    page-break-inside: avoid;
+  }
+  
+  /* Add page breaks where needed */
+  .print-page-break {
+    page-break-before: always;
+  }
+  
+  /* Optimize fonts for print */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  h1 { font-size: 18pt; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 14pt; }
+  h4, h5, h6 { font-size: 12pt; }
+}
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   CSS optimizations for better rendering performance
+   ========================================================================== */
+
+/* Enable hardware acceleration for smooth animations */
+.animate,
+.transition,
+.card:hover,
+.btn:hover,
+.modal {
+  will-change: transform;
+}
+
+/* Optimize rendering for complex layouts */
+.complex-grid,
+.nutrition-grid,
+.meals-grid {
+  contain: layout style;
+}
+
+/* Improve scroll performance */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+}
+
+/* ==========================================================================
+   BROWSER-SPECIFIC FIXES
+   Compatibility adjustments for different browsers
+   ========================================================================== */
+
+/* Safari-specific fixes */
+@supports (-webkit-appearance: none) {
+  /* Fix Safari button styling */
+  button,
+  input[type="button"],
+  input[type="submit"] {
+    -webkit-appearance: none;
+  }
+  
+  /* Fix Safari input styling */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    -webkit-appearance: none;
+  }
+}
+
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+  /* Fix Firefox button padding */
+  button::-moz-focus-inner,
+  input[type="button"]::-moz-focus-inner,
+  input[type="submit"]::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+/* Edge/IE-specific fixes */
+@supports (-ms-ime-align: auto) {
+  /* Fix Edge grid layouts */
+  .grid {
+    display: -ms-grid;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   Additional accessibility improvements beyond base styles
+   ========================================================================== */
+
+/* Enhanced focus indicators for keyboard navigation */
+.focus-enhanced:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  position: relative;
+  z-index: var(--z-index-50);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  /* Increase border thickness for better visibility */
+  .card,
+  .btn,
+  input,
+  select,
+  textarea {
+    border-width: 2px;
+  }
+  
+  /* Enhance text contrast */
+  .text-muted {
+    color: var(--color-text-primary);
+  }
+  
+  /* Remove subtle background colors */
+  .bg-gray-50,
+  .bg-primary-50 {
+    background-color: var(--color-background);
+  }
+}
+
+/* Motion preferences support */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations and transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential transitions for usability */
+  .keep-transition {
+    transition: opacity 0.2s ease !important;
+  }
+}
+
+/* ==========================================================================
+   THEME SWITCHING ENHANCEMENTS
+   Smooth transitions between light and dark themes
+   ========================================================================== */
+
+/* Theme transition for smooth switching */
+:root,
+[data-theme="dark"] {
+  transition: 
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Disable theme transitions during page load */
+.theme-loading * {
+  transition: none !important;
+}
+
+/* ==========================================================================
+   LOADING STATES
+   Global loading and skeleton states
+   ========================================================================== */
+
+/* Page loading overlay */
+.page-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+}
+
+.page-loading .spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--color-border-light);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+/* Skeleton loading for cards */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-200) 25%,
+    var(--color-gray-100) 50%,
+    var(--color-gray-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-700) 25%,
+    var(--color-gray-600) 50%,
+    var(--color-gray-700) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* ==========================================================================
+   ERROR STATES
+   Global error handling and user feedback
+   ========================================================================== */
+
+/* Error message styling */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background-color: var(--color-error-light);
+  color: var(--color-error-dark);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.error-message::before {
+  content: "⚠️";
+  font-size: var(--font-size-base);
+}
+
+/* Success message styling */
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.success-message::before {
+  content: "✅";
+  font-size: var(--font-size-base);
+}
+
+/* ==========================================================================
+   RESPONSIVE IMAGES AND MEDIA
+   Optimized media handling for all screen sizes
+   ========================================================================== */
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent layout shift for images */
+img[width][height] {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Modern image formats support */
+.webp img {
+  image-rendering: optimizeQuality;
+}
+
+/* ==========================================================================
+   COMPONENT STATE MANAGEMENT
+   Global state classes for dynamic behavior
+   ========================================================================== */
+
+/* Disabled state */
+.disabled,
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Loading state */
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+/* Active/Selected state */
+.active,
+.selected {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-dark);
+  border-color: var(--color-primary);
+}
+
+/* Hidden state with transition */
+.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-opacity);
+}
+
+.fade-in {
+  opacity: 1;
+  visibility: visible;
+  transition: var(--transition-opacity);
+}
+
+/* ==========================================================================
+   MODERN CSS FEATURES
+   Progressive enhancement with modern CSS
+   ========================================================================== */
+
+/* CSS Grid support detection */
+@supports (display: grid) {
+  .grid-enhanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+  }
+}
+
+/* CSS Custom Properties support detection */
+@supports (color: var(--test)) {
+  .modern-styles {
+    /* Enhanced styles for modern browsers */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+/* Container queries support (future enhancement) */
+@supports (container-type: inline-size) {
+  .container-responsive {
+    container-type: inline-size;
+  }
+  
+  @container (min-width: 300px) {
+    .container-responsive .card {
+      padding: var(--spacing-6);
+    }
+  }
+}
+
+/* ==========================================================================
+   CRITICAL CSS INLINED STYLES
+   Essential styles to prevent flash of unstyled content
+   ========================================================================== */
+
+/* Prevent flash of unstyled content */
+.no-js .js-only {
+  display: none;
+}
+
+.js .no-js-only {
+  display: none;
+}
+
+/* Critical layout structure */
+.critical-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.critical-main {
+  flex: 1;
+}
+
+/* ==========================================================================
+   VENDOR PREFIXES FOR COMPATIBILITY
+   Ensure compatibility across different browsers
+   ========================================================================== */
+
+/* Flexbox prefixes for older browsers */
+.flex-compat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-center-compat {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+/* Transform prefixes */
+.transform-compat {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* ==========================================================================
+   END OF MAIN STYLESHEET
+   ========================================================================== */

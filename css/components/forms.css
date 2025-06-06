@@ -1,0 +1,946 @@
+/* ==========================================================================
+   NutriSearch Form Components
+   Comprehensive form system including inputs, selects, toggles, and nutrition controls
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE FORM STYLES
+   ========================================================================== */
+
+/* Form container */
+.form,
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Form groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-4);
+}
+
+/* Labels */
+label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--spacing-1);
+  display: block;
+}
+
+label.required::after {
+  content: " *";
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+}
+
+.label-inline {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0;
+  cursor: pointer;
+  gap: var(--spacing-2);
+}
+
+/* Help text */
+.form-help,
+small {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  margin-top: var(--spacing-1);
+}
+
+/* Error messages */
+.form-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.form-error::before {
+  content: "⚠";
+  font-size: var(--font-size-sm);
+}
+
+/* Success messages */
+.form-success {
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.form-success::before {
+  content: "✓";
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   INPUT FIELDS
+   ========================================================================== */
+
+/* Base input styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select {
+  /* Structure */
+  width: 100%;
+  height: var(--input-height);
+  padding: var(--input-padding);
+  
+  /* Typography */
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  
+  /* Visual styling */
+  background-color: var(--color-background);
+  border: var(--input-border-width) solid var(--color-border);
+  border-radius: var(--input-border-radius);
+  color: var(--color-text-primary);
+  
+  /* Interactions */
+  transition: var(--transition-fast);
+  outline: none;
+  box-shadow: var(--shadow-inner);
+}
+
+/* Hover states */
+input:hover:not(:disabled):not(:focus),
+textarea:hover:not(:disabled):not(:focus),
+select:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 var(--input-focus-ring-width) rgba(74, 124, 89, 0.2);
+  background-color: var(--color-background);
+}
+
+/* Disabled states */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+  border-color: var(--color-border-light);
+}
+
+/* Invalid states */
+input:invalid:not(:focus),
+textarea:invalid:not(:focus),
+select:invalid:not(:focus),
+input.error,
+textarea.error,
+select.error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 var(--input-focus-ring-width) rgba(239, 68, 68, 0.2);
+}
+
+/* Valid states */
+input:valid:not(:focus),
+textarea:valid:not(:focus),
+select:valid:not(:focus),
+input.success,
+textarea.success,
+select.success {
+  border-color: var(--color-success);
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   INPUT VARIANTS
+   ========================================================================== */
+
+/* Small inputs */
+.input-sm,
+input.small {
+  height: 2rem;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+/* Large inputs */
+.input-lg,
+input.large {
+  height: 3rem;
+  padding: var(--spacing-4) var(--spacing-5);
+  font-size: var(--font-size-lg);
+}
+
+/* Textarea specific styles */
+textarea {
+  height: auto;
+  min-height: 6rem;
+  resize: vertical;
+  line-height: var(--line-height-relaxed);
+}
+
+textarea.compact {
+  min-height: 4rem;
+}
+
+textarea.large {
+  min-height: 8rem;
+}
+
+/* ==========================================================================
+   INPUT GROUPS & ADDONS
+   ========================================================================== */
+
+.input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  position: relative;
+}
+
+.input-group input {
+  border-radius: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.input-group input:first-child {
+  border-top-left-radius: var(--input-border-radius);
+  border-bottom-left-radius: var(--input-border-radius);
+}
+
+.input-group input:last-child {
+  border-top-right-radius: var(--input-border-radius);
+  border-bottom-right-radius: var(--input-border-radius);
+}
+
+.input-group input:not(:last-child) {
+  border-right: none;
+}
+
+.input-group input:focus {
+  z-index: var(--z-index-10);
+  border-right: var(--input-border-width) solid var(--color-primary);
+}
+
+/* Input addons */
+.input-addon {
+  display: flex;
+  align-items: center;
+  padding: var(--input-padding);
+  background-color: var(--color-background-secondary);
+  border: var(--input-border-width) solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.input-addon-left {
+  border-right: none;
+  border-top-left-radius: var(--input-border-radius);
+  border-bottom-left-radius: var(--input-border-radius);
+}
+
+.input-addon-right {
+  border-left: none;
+  border-top-right-radius: var(--input-border-radius);
+  border-bottom-right-radius: var(--input-border-radius);
+}
+
+/* Search input with icon */
+.search-input-container {
+  position: relative;
+}
+
+.search-input-container input {
+  padding-left: 2.5rem;
+}
+
+.search-input-container::before {
+  content: "🔍";
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  z-index: var(--z-index-10);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SELECT DROPDOWNS
+   ========================================================================== */
+
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right var(--spacing-3) center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:disabled {
+  cursor: not-allowed;
+}
+
+/* Multiple select */
+select[multiple] {
+  height: auto;
+  min-height: 6rem;
+  background-image: none;
+  padding-right: var(--input-padding);
+}
+
+/* ==========================================================================
+   CHECKBOXES AND RADIO BUTTONS
+   ========================================================================== */
+
+/* Custom checkbox */
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  position: relative;
+  margin-bottom: var(--spacing-2);
+}
+
+.checkbox-label:last-child,
+.radio-label:last-child {
+  margin-bottom: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-border-dark);
+  background-color: var(--color-background);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  border-radius: var(--radius-sm);
+}
+
+input[type="radio"] {
+  border-radius: var(--radius-full);
+}
+
+/* Hover states */
+input[type="checkbox"]:hover:not(:disabled),
+input[type="radio"]:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.1);
+}
+
+/* Focus states */
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Checked states */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Checkmark for checkbox */
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-inverse);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Dot for radio */
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-text-inverse);
+}
+
+/* Disabled states */
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--color-border-light);
+}
+
+.checkbox-label:has(input:disabled),
+.radio-label:has(input:disabled) {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   TOGGLE SWITCHES
+   ========================================================================== */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-gray-300);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1rem;
+  width: 1rem;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--color-background);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+input:checked + .slider {
+  background-color: var(--color-primary);
+}
+
+input:focus + .slider {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+input:checked + .slider::before {
+  transform: translateX(1.5rem);
+}
+
+input:disabled + .slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   NUTRITION-SPECIFIC FORM CONTROLS
+   ========================================================================== */
+
+/* Nutrition input with toggle */
+.nutrition-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+}
+
+.nutrition-input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.nutrition-input:focus {
+  text-align: right;
+}
+
+/* Toggle switch for min/max */
+.toggle-switch-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.25rem;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-error-light);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-error);
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 0.875rem;
+  width: 0.875rem;
+  left: 2px;
+  bottom: 1px;
+  background-color: var(--color-error);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-full);
+}
+
+.toggle-input:checked + .toggle-slider {
+  background-color: var(--color-success-light);
+  border-color: var(--color-success);
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  background-color: var(--color-success);
+  transform: translateX(1.125rem);
+}
+
+.toggle-input:focus + .toggle-slider {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.toggle-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  min-width: 2rem;
+}
+
+/* Nutrition grid layout */
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.nutrition-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.nutrition-item label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* Nutrition table layout (meal planner modal) */
+.nutrition-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  background-color: var(--color-background-secondary);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.nutrition-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-3);
+  background-color: var(--color-background);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+}
+
+.nutrition-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.nutrition-row input {
+  width: 80px;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   RANGE INPUTS
+   ========================================================================== */
+
+.range-inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.range-inputs input {
+  width: 80px;
+  text-align: center;
+}
+
+.range-inputs span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Slider inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-gray-200);
+  outline: none;
+  padding: 0;
+  margin: var(--spacing-2) 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--color-background);
+  box-shadow: var(--shadow-sm);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--color-background);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   SEARCH SUGGESTIONS
+   ========================================================================== */
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-dropdown);
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-suggestions.show {
+  display: block;
+}
+
+.suggestion-item {
+  padding: var(--spacing-3) var(--spacing-4);
+  cursor: pointer;
+  transition: var(--transition-colors);
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: var(--font-size-sm);
+}
+
+.suggestion-item:hover,
+.suggestion-item:focus {
+  background-color: var(--color-background-hover);
+}
+
+.suggestion-item.active {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-dark);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   FORM VALIDATION STYLES
+   ========================================================================== */
+
+.form-group.has-error input,
+.form-group.has-error textarea,
+.form-group.has-error select {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 var(--input-focus-ring-width) rgba(239, 68, 68, 0.2);
+}
+
+.form-group.has-success input,
+.form-group.has-success textarea,
+.form-group.has-success select {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 var(--input-focus-ring-width) rgba(34, 197, 94, 0.2);
+}
+
+.form-group.has-warning input,
+.form-group.has-warning textarea,
+.form-group.has-warning select {
+  border-color: var(--color-warning);
+  box-shadow: 0 0 0 var(--input-focus-ring-width) rgba(245, 158, 11, 0.2);
+}
+
+/* ==========================================================================
+   RESPONSIVE FORM LAYOUTS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+  }
+  
+  .form-group-inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-2);
+  }
+  
+  .nutrition-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+  }
+  
+  .nutrition-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2);
+    text-align: center;
+  }
+  
+  .nutrition-controls {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .toggle-switch-container {
+    justify-content: center;
+  }
+  
+  .range-inputs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Make inputs more touch-friendly */
+  input,
+  textarea,
+  select,
+  .switch {
+    min-height: 44px;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   DARK THEME ADJUSTMENTS
+   ========================================================================== */
+
+[data-theme="dark"] {
+  input,
+  textarea,
+  select {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    background-color: var(--color-background-tertiary);
+    border-color: var(--color-primary);
+  }
+  
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    background-color: var(--color-background-tertiary);
+    border-color: var(--color-border-light);
+  }
+  
+  .input-addon {
+    background-color: var(--color-background-tertiary);
+    border-color: var(--color-border);
+  }
+  
+  .nutrition-table {
+    background-color: var(--color-background-tertiary);
+    border-color: var(--color-border);
+  }
+  
+  .nutrition-row {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border);
+  }
+  
+  .search-suggestions {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border);
+  }
+  
+  .suggestion-item:hover {
+    background-color: var(--color-background-hover);
+  }
+  
+  select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%94a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  input,
+  textarea,
+  select {
+    border-width: 2px;
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-width: 3px;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    border-width: 2px;
+  }
+  
+  .slider,
+  .toggle-slider {
+    border-width: 2px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION PREFERENCES
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  input,
+  textarea,
+  select,
+  .slider,
+  .toggle-slider,
+  .suggestion-item {
+    transition: none;
+  }
+  
+  .slider::before,
+  .toggle-slider::before {
+    transition: none;
+  }
+}

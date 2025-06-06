@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutritional Search - NutriSearch</title>
+    <meta name="description" content="Find foods that match your specific nutritional criteria and dietary goals. Advanced nutrition search for New Zealand supermarkets.">
+    <meta name="keywords" content="nutritional search, food finder, nutrition criteria, dietary requirements, New Zealand, healthy eating">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥝</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🥝 NutriSearch</h1>
+                <p>Nutritional Search</p>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="meal-planner.html">Meal Planner</a>
+                <a href="settings.html">Settings</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h2>Find Foods by Nutrition</h2>
+            
+            <div class="nutritional-search-layout">
+                <!-- Left Sidebar: Saved Profiles -->
+                <div class="profiles-sidebar">
+                    <div class="sidebar-header">
+                        <h3>Saved Profiles</h3>
+                        <button class="btn-secondary btn-small" onclick="createNewProfile()" aria-describedby="new-profile-help">+ New Profile</button>
+                        <small id="new-profile-help" class="sr-only">Create a new nutritional profile</small>
+                    </div>
+                    
+                    <div class="profiles-list" id="profilesList" role="region" aria-label="Saved nutritional profiles">
+                        <!-- Profiles will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="sidebar-footer">
+                        <div class="quick-actions">
+                            <button class="btn-secondary full-width" onclick="clearCurrentProfile()" aria-describedby="clear-help">Clear All</button>
+                            <small id="clear-help" class="sr-only">Clear all current nutritional criteria</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Content: Nutritional Search -->
+                <div class="search-main-content">
+                    <div class="profile-editor">
+                        <div class="editor-header">
+                            <div class="profile-info">
+                                <label for="profileName" class="sr-only">Profile Name</label>
+                                <input type="text" id="profileName" placeholder="Profile Name (e.g., My Keto Diet)" class="profile-name-input" aria-describedby="profile-name-help">
+                                <small id="profile-name-help" class="sr-only">Enter a name for this nutritional profile</small>
+                                
+                                <label for="profileDescription" class="sr-only">Profile Description</label>
+                                <textarea id="profileDescription" placeholder="Optional description..." class="profile-description-input" aria-describedby="profile-desc-help"></textarea>
+                                <small id="profile-desc-help" class="sr-only">Add an optional description for this profile</small>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn-primary" onclick="saveCurrentProfile()" aria-describedby="save-profile-help">Save Profile</button>
+                                <small id="save-profile-help" class="sr-only">Save the current nutritional criteria as a profile</small>
+                                <button class="btn-secondary" onclick="searchWithCurrentCriteria()" aria-describedby="search-foods-help">Search Foods</button>
+                                <small id="search-foods-help" class="sr-only">Find foods matching the current criteria</small>
+                            </div>
+                        </div>
+                        
+                        <div class="nutrition-editor">
+                            <h4>Nutritional Criteria</h4>
+                            <div class="nutrition-grid">
+                                <div class="nutrition-item">
+                                    <label for="calories">Calories (kcal)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="calories" placeholder="0" class="nutrition-input" min="0" aria-describedby="calories-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="calories" aria-label="Toggle calories min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="calories-help" class="sr-only">Set maximum or minimum calorie limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="protein">Protein (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="protein" placeholder="0" class="nutrition-input" min="0" aria-describedby="protein-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="protein" checked aria-label="Toggle protein min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Min</span>
+                                        </div>
+                                    </div>
+                                    <small id="protein-help" class="sr-only">Set minimum or maximum protein requirement</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="carbs">Carbohydrates (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="carbs" placeholder="0" class="nutrition-input" min="0" aria-describedby="carbs-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="carbs" aria-label="Toggle carbs min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="carbs-help" class="sr-only">Set maximum or minimum carbohydrate limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="fat">Fat (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="fat" placeholder="0" class="nutrition-input" min="0" aria-describedby="fat-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="fat" aria-label="Toggle fat min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="fat-help" class="sr-only">Set maximum or minimum fat limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="sugar">Sugar (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="sugar" placeholder="0" class="nutrition-input" min="0" aria-describedby="sugar-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="sugar" aria-label="Toggle sugar min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="sugar-help" class="sr-only">Set maximum or minimum sugar limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="fiber">Fiber (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="fiber" placeholder="0" class="nutrition-input" min="0" aria-describedby="fiber-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="fiber" checked aria-label="Toggle fiber min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Min</span>
+                                        </div>
+                                    </div>
+                                    <small id="fiber-help" class="sr-only">Set minimum or maximum fiber requirement</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="sodium">Sodium (mg)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="sodium" placeholder="0" class="nutrition-input" min="0" aria-describedby="sodium-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="sodium" aria-label="Toggle sodium min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="sodium-help" class="sr-only">Set maximum or minimum sodium limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="satfat">Saturated Fat (g)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="satfat" placeholder="0" class="nutrition-input" min="0" aria-describedby="satfat-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="satfat" aria-label="Toggle saturated fat min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="satfat-help" class="sr-only">Set maximum or minimum saturated fat limit</small>
+                                </div>
+                                
+                                <div class="nutrition-item">
+                                    <label for="cholesterol">Cholesterol (mg)</label>
+                                    <div class="nutrition-controls">
+                                        <input type="number" id="cholesterol" placeholder="0" class="nutrition-input" min="0" aria-describedby="cholesterol-help">
+                                        <div class="toggle-switch-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="toggle-input" data-nutrient="cholesterol" aria-label="Toggle cholesterol min/max">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                            <span class="toggle-text">Max</span>
+                                        </div>
+                                    </div>
+                                    <small id="cholesterol-help" class="sr-only">Set maximum or minimum cholesterol limit</small>
+                                </div>
+                            </div>
+                            
+                            <div class="additional-filters">
+                                <div class="filter-row">
+                                    <div class="filter-group">
+                                        <label for="dietaryFilter">Dietary Requirements:</label>
+                                        <select id="dietaryFilter" aria-describedby="dietary-filter-help">
+                                            <option value="">All</option>
+                                            <option value="vegetarian">Vegetarian</option>
+                                            <option value="vegan">Vegan</option>
+                                            <option value="gluten-free">Gluten Free</option>
+                                            <option value="dairy-free">Dairy Free</option>
+                                            <option value="keto">Keto</option>
+                                            <option value="paleo">Paleo</option>
+                                        </select>
+                                        <small id="dietary-filter-help" class="sr-only">Filter foods by dietary requirements</small>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label for="categoryFilter">Food Category:</label>
+                                        <select id="categoryFilter" aria-describedby="category-filter-help">
+                                            <option value="">All Categories</option>
+                                            <option value="fruits">Fruits</option>
+                                            <option value="vegetables">Vegetables</option>
+                                            <option value="meat">Meat & Poultry</option>
+                                            <option value="fish">Fish & Seafood</option>
+                                            <option value="dairy">Dairy</option>
+                                            <option value="grains">Grains & Cereals</option>
+                                            <option value="nuts">Nuts & Seeds</option>
+                                            <option value="beverages">Beverages</option>
+                                        </select>
+                                        <small id="category-filter-help" class="sr-only">Filter foods by category type</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Results Section -->
+                    <div class="search-results-section">
+                        <div class="results-header">
+                            <h3>Search Results</h3>
+                            <div class="results-controls">
+                                <span id="resultsCount" aria-live="polite">Ready to search</span>
+                                <label for="sortBy" class="sr-only">Sort results by</label>
+                                <select id="sortBy" onchange="sortResults()" aria-describedby="sort-help">
+                                    <option value="name">Sort by Name</option>
+                                    <option value="calories">Sort by Calories</option>
+                                    <option value="protein">Sort by Protein</option>
+                                    <option value="carbs">Sort by Carbs</option>
+                                </select>
+                                <small id="sort-help" class="sr-only">Change how search results are sorted</small>
+                                <button class="btn-secondary btn-small" onclick="exportSearchResults()" aria-describedby="export-help">Export</button>
+                                <small id="export-help" class="sr-only">Export search results to CSV file</small>
+                            </div>
+                        </div>
+                        
+                        <div class="results-grid" id="resultsGrid" role="region" aria-label="Food search results" aria-live="polite">
+                            <div class="search-placeholder">
+                                <div class="placeholder-icon">🔍</div>
+                                <h4>Ready to Search</h4>
+                                <p>Set your nutritional criteria above and click "Search Foods" to find matching items from New Zealand supermarkets.</p>
+                                <div class="quick-search-buttons">
+                                    <button class="btn-secondary" onclick="applyQuickSearch('low-calorie')" aria-describedby="low-cal-help">Low Calorie</button>
+                                    <small id="low-cal-help" class="sr-only">Search for foods under 200 calories</small>
+                                    <button class="btn-secondary" onclick="applyQuickSearch('high-protein')" aria-describedby="high-protein-help">High Protein</button>
+                                    <small id="high-protein-help" class="sr-only">Search for foods with high protein content</small>
+                                    <button class="btn-secondary" onclick="applyQuickSearch('low-carb')" aria-describedby="low-carb-help">Low Carb</button>
+                                    <small id="low-carb-help" class="sr-only">Search for foods with low carbohydrates</small>
+                                    <button class="btn-secondary" onclick="applyQuickSearch('high-fiber')" aria-describedby="high-fiber-help">High Fiber</button>
+                                    <small id="high-fiber-help" class="sr-only">Search for foods with high fiber content</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NutriSearch. Empowering healthier food choices in New Zealand.</p>
+        </div>
+    </footer>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/nutritional-search.js"></script>
+</body>
+</html>

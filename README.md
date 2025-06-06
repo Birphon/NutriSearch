@@ -1,70 +1,59 @@
 # NutriSearch
 
-NutriSearch is a prototype web application designed to help users in New Zealand search for food products and plan meals based on specific dietary and nutritional requirements. The goal is to make it easy for individuals with unique dietary needs—such as low sugar, gluten-free, or calorie-restricted diets—to find suitable food options and build meal plans accordingly.
+Smart Nutrition Planning for New Zealand
 
----
+## Overview
 
-## 🌱 Project Goals
+NutriSearch is a web application designed to help New Zealand consumers plan their meals based on nutritional requirements and local supermarket availability.
 
-- Build a user-friendly interface for filtering foods by detailed nutritional info.
-- Allow users to generate custom meal plans based on selected dietary constraints.
-- Develop a prototype to demonstrate to major New Zealand supermarkets for potential API partnerships.
-- Integrate future support for real-time product data from:
-  - Foodstuffs South Island
-  - Foodstuffs North Island
-  - Woolworths NZ (Countdown)
+## Project Structure
 
----
+`
+NutriSearch/
+├── index.html                          # Home page
+├── pages/                              # Additional HTML pages
+├── scripts/                            # JavaScript files
+├── css/                                # Stylesheets
+│   ├── base/                           # Base styles and variables
+│   ├── components/                     # Reusable components
+│   ├── layout/                         # Page-specific layouts
+│   └── utilities/                      # Utility classes
+└── README.md                           # This file
+`
 
-## 🧪 Key Features (Planned)
+## Features
 
-- **Nutritional Search**: Filter by max/min values such as:
-  - Calories (e.g. ≤ 200 kcal)
-  - Sugar (e.g. 0g)
-  - Gluten (e.g. gluten-free)
-  - Fat, Protein, Sodium, Carbs, etc.
-- **Meal Planner**: Auto-generate daily or weekly meal plans within user-defined constraints.
-- **Ingredient Breakdown**: View full nutritional breakdown of items.
-- **Local Focus**: Tailored to the New Zealand market, aligning with locally available food products.
+- 🍽️ **Meal Planner** - Create custom meal plans based on nutritional requirements
+- 🔍 **Nutritional Search** - Find foods matching specific nutritional criteria
+- 📍 **Location Services** - Find nearby New Zealand supermarkets
+- ⚙️ **Settings** - Manage nutritional profiles and preferences
 
----
+## Technology Stack
 
-## 🚧 Current Status
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Styling**: CSS Custom Properties, CSS Grid, Flexbox
+- **Storage**: localStorage (client-side)
+- **Deployment**: GitHub Pages compatible
 
-- [ ] Frontend prototype in development
-- [ ] Basic meal planner logic
-- [ ] Nutritional filter engine
-- [ ] Demo-ready MVP
-- [ ] Supermarket outreach plan
+## Getting Started
 
----
+1. Open index.html in a web browser
+2. Set your location to find nearby stores
+3. Create nutritional profiles
+4. Start planning meals!
 
-## 📍 Why New Zealand?
+## Target Integration
 
-While there are many global solutions for nutrition tracking and meal planning, few are tailored to New Zealand's unique food market and available products. By aligning with local supermarkets and using real catalog data, NutriSearch can offer relevant, actionable insights for Kiwi consumers.
+Designed for integration with New Zealand supermarket APIs:
+- Foodstuffs (New World, PAK'nSAVE)
+- Woolworths (Countdown)
+- FreshChoice
+- SuperValue
 
----
+## Development
 
-## 🤝 Future Vision
+This is a static website optimized for GitHub Pages deployment. All functionality is client-side using modern JavaScript and CSS.
 
-This prototype will be used to pitch to major supermarket brands for access to their product APIs. With official support, NutriSearch aims to scale into a public-facing web platform that empowers healthier food choices across New Zealand.
+## License
 
----
-
-## 📬 Contact
-
-For collaboration or inquiries:
-
-**Developer**: Jared Ireland 
-
-**Email**: jaredireland1205+NutriSearch@gmail.com
-
-*Please include **NutriSearch** in the title of the email*
-
-**Location**: Christchurch, New Zealand
-
----
-
-## 📝 License
-
-This project is currently in prototype stage and not yet licensed for commercial use.
+© 2025 NutriSearch. All rights reserved.

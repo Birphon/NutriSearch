@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - NutriSearch</title>
+    <meta name="description" content="Manage your nutritional profiles, app preferences, and account settings. Customize your NutriSearch experience.">
+    <meta name="keywords" content="settings, nutritional profiles, preferences, account management, app configuration, NutriSearch">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥝</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🥝 NutriSearch</h1>
+                <p>Settings</p>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="meal-planner.html">Meal Planner</a>
+                <a href="nutritional-search.html">Search</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h2>Settings</h2>
+            
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Dark Mode</h4>
+                            <p>Switch between light and dark themes for better viewing comfort</p>
+                        </div>
+                        <label class="switch" aria-describedby="dark-mode-help">
+                            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()" aria-label="Toggle dark mode">
+                            <span class="slider"></span>
+                        </label>
+                        <small id="dark-mode-help" class="sr-only">Toggle between light and dark appearance themes</small>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Nutritional Profiles</h3>
+                    
+                    <div class="profile-filters">
+                        <div class="filter-group">
+                            <label for="calorieSort">Sort by Calories:</label>
+                            <select id="calorieSort" onchange="sortProfiles()" aria-describedby="calorie-sort-help">
+                                <option value="none">No sorting</option>
+                                <option value="low-high">Lowest to Highest</option>
+                                <option value="high-low">Highest to Lowest</option>
+                            </select>
+                            <small id="calorie-sort-help" class="sr-only">Sort profiles by calorie limits</small>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="minCalories">Filter by Calorie Range:</label>
+                            <div class="range-inputs">
+                                <input type="number" id="minCalories" placeholder="Min" onchange="filterProfiles()" min="0" aria-label="Minimum calories">
+                                <span>to</span>
+                                <input type="number" id="maxCalories" placeholder="Max" onchange="filterProfiles()" min="0" aria-label="Maximum calories">
+                                <span>kcal</span>
+                            </div>
+                            <small id="calorie-range-help" class="sr-only">Filter profiles by calorie range</small>
+                        </div>
+                        
+                        <button class="btn-secondary" onclick="clearFiltersSettings()" aria-describedby="clear-filters-help">Clear Filters</button>
+                        <small id="clear-filters-help" class="sr-only">Remove all profile filters</small>
+                    </div>
+                    
+                    <div class="profiles-list" id="profilesList" role="region" aria-label="Saved nutritional profiles">
+                        <!-- Profiles will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn-danger" onclick="confirmClearAllProfiles()" aria-describedby="clear-all-help">Clear All Profiles</button>
+                        <small id="clear-all-help" class="sr-only">Delete all saved nutritional profiles - this action cannot be undone</small>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Data Management</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Export Data</h4>
+                            <p>Download your profiles, saved meals, and preferences as a backup file</p>
+                        </div>
+                        <button class="btn-secondary" onclick="exportData()" aria-describedby="export-data-help">Export</button>
+                        <small id="export-data-help" class="sr-only">Download all your NutriSearch data as a JSON file</small>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Import Data</h4>
+                            <p>Upload a previously exported data file to restore your settings</p>
+                        </div>
+                        <div class="import-controls">
+                            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData()" aria-label="Select data file to import">
+                            <button class="btn-secondary" onclick="document.getElementById('importFile').click()" aria-describedby="import-data-help">Import</button>
+                            <small id="import-data-help" class="sr-only">Select a JSON file to import your NutriSearch data</small>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Storage Usage</h4>
+                            <p id="storageUsage" aria-live="polite">Calculating storage usage...</p>
+                        </div>
+                        <button class="btn-secondary" onclick="calculateStorageUsage()" aria-describedby="storage-help">Refresh</button>
+                        <small id="storage-help" class="sr-only">Recalculate how much local storage is being used</small>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Application Information</h3>
+                    <div class="about-info">
+                        <div class="app-details">
+                            <h4>NutriSearch v1.0</h4>
+                            <p>Smart nutrition planning for New Zealand consumers</p>
+                            <p>Designed to integrate with major NZ supermarket chains</p>
+                        </div>
+                        
+                        <div class="supported-stores">
+                            <h4>Supported Stores:</h4>
+                            <div class="store-logos">
+                                <span class="store-badge" aria-label="New World supermarkets">New World</span>
+                                <span class="store-badge" aria-label="PAK'nSAVE supermarkets">PAK'nSAVE</span>
+                                <span class="store-badge" aria-label="Countdown supermarkets">Countdown</span>
+                                <span class="store-badge" aria-label="FreshChoice supermarkets">FreshChoice</span>
+                                <span class="store-badge" aria-label="SuperValue supermarkets">SuperValue</span>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-summary">
+                            <h4>Key Features:</h4>
+                            <ul>
+                                <li>🍽️ Custom meal planning based on nutritional requirements</li>
+                                <li>🔍 Advanced food search with nutritional filtering</li>
+                                <li>📍 Location-based store finder for New Zealand</li>
+                                <li>⚙️ Personalized nutritional profiles and preferences</li>
+                                <li>📱 Responsive design for desktop and mobile</li>
+                                <li>🌙 Light and dark theme support</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="privacy-note">
+                            <h4>Privacy & Data:</h4>
+                            <p>All your data is stored locally on your device. NutriSearch does not collect or transmit personal information to external servers. Your nutritional profiles and preferences remain private and secure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Advanced Settings</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Optimize Storage</h4>
+                            <p>Clean up old data and optimize local storage usage</p>
+                        </div>
+                        <button class="btn-secondary" onclick="optimizeStorage()" aria-describedby="optimize-help">Optimize</button>
+                        <small id="optimize-help" class="sr-only">Clean up old data to free up storage space</small>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Reset All Data</h4>
+                            <p>Permanently delete all data and return to factory settings</p>
+                        </div>
+                        <button class="btn-danger" onclick="resetAllData()" aria-describedby="reset-help">Reset</button>
+                        <small id="reset-help" class="sr-only">Warning: This will permanently delete all your NutriSearch data</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Action</h3>
+                <button class="close" onclick="closeConfirmModal()" aria-label="Close confirmation modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage" aria-live="assertive">Are you sure you want to perform this action?</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                    <button class="btn-danger" id="confirmButton" onclick="performConfirmAction()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Detail Modal -->
+    <div id="profileDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="profileDetailTitle">Profile Details</h3>
+                <button class="close" onclick="closeProfileDetailModal()" aria-label="Close profile details modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="profileDetailContent" role="region" aria-label="Profile nutritional details">
+                    <!-- Profile details will be populated by JavaScript -->
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeProfileDetailModal()">Close</button>
+                    <button class="btn-primary" onclick="editProfile()" aria-describedby="edit-profile-help">Edit</button>
+                    <small id="edit-profile-help" class="sr-only">Edit this nutritional profile</small>
+                    <button class="btn-danger" onclick="deleteProfile()" aria-describedby="delete-profile-help">Delete</button>
+                    <small id="delete-profile-help" class="sr-only">Permanently delete this profile</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NutriSearch. Empowering healthier food choices in New Zealand.</p>
+        </div>
+    </footer>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,969 @@
+/* ==========================================================================
+   NutriSearch Card Components
+   Comprehensive card system for meals, foods, profiles, and content display
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE CARD STYLES
+   ========================================================================== */
+
+   .card {
+    /* Structure */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+    /* Spacing */
+    padding: var(--card-padding);
+    margin-bottom: var(--spacing-4);
+    
+    /* Visual styling */
+    background-color: var(--color-background);
+    border: var(--card-border-width) solid var(--color-border);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-sm);
+    
+    /* Interactions */
+    transition: var(--transition-fast);
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  
+  /* Card without hover effects */
+  .card-static {
+    transition: none;
+  }
+  
+  .card-static:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Compact card with reduced padding */
+  .card-compact {
+    padding: var(--card-padding-sm);
+  }
+  
+  /* ==========================================================================
+     CARD LAYOUTS
+     ========================================================================== */
+  
+  /* Card Header */
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-3);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  
+  .card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
+  }
+  
+  .card-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: var(--spacing-1) 0 0 0;
+    line-height: var(--line-height-normal);
+  }
+  
+  /* Card Body */
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-content {
+    flex: 1;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .card-content:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Card Footer */
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--spacing-4);
+    padding-top: var(--spacing-3);
+    border-top: 1px solid var(--color-border-light);
+  }
+  
+  /* Card Actions */
+  .card-actions {
+    display: flex;
+    gap: var(--spacing-2);
+    align-items: center;
+  }
+  
+  .card-actions .btn {
+    font-size: var(--font-size-sm);
+  }
+  
+  /* ==========================================================================
+     NAVIGATION CARDS (Home Page)
+     ========================================================================== */
+  
+  /* Primary Navigation Cards */
+  .primary-card {
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-primary-50) 100%);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .primary-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, var(--color-primary-100) 100%);
+    opacity: 0;
+    transition: var(--transition-fast);
+    z-index: 1;
+  }
+  
+  .primary-card:hover::before {
+    opacity: 1;
+  }
+  
+  .primary-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-primary-lg);
+    transform: translateY(-4px);
+  }
+  
+  .primary-card > * {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .primary-card .card-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-4);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+  
+  .primary-card h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-3);
+    color: var(--color-text-primary);
+  }
+  
+  .primary-card p {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+    max-width: 280px;
+  }
+  
+  /* Secondary Navigation Cards */
+  .secondary-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    min-height: 100px;
+  }
+  
+  .secondary-card:hover {
+    border-color: var(--color-primary-light);
+    background-color: var(--color-primary-50);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  
+  .secondary-card .card-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-100);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-fast);
+  }
+  
+  .secondary-card:hover .card-icon {
+    background-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+  
+  .secondary-card .card-content h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-1);
+    color: var(--color-text-primary);
+  }
+  
+  .secondary-card .card-content p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--line-height-normal);
+  }
+  
+  /* ==========================================================================
+     MEAL CARDS
+     ========================================================================== */
+  
+  .meal-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    min-width: var(--meal-card-min-width);
+    position: relative;
+  }
+  
+  .meal-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    border-color: var(--color-primary-light);
+  }
+  
+  /* Meal card image */
+  .meal-card-image {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-accent-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--color-primary-dark);
+    overflow: hidden;
+  }
+  
+  .meal-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Meal type indicator */
+  .meal-type-badge {
+    position: absolute;
+    top: var(--spacing-3);
+    left: var(--spacing-3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--color-text-primary);
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    border-left: 3px solid;
+  }
+  
+  .meal-type-badge.breakfast { border-left-color: #fbbf24; }
+  .meal-type-badge.lunch { border-left-color: #34d399; }
+  .meal-type-badge.dinner { border-left-color: #818cf8; }
+  .meal-type-badge.snack { border-left-color: #fb7185; }
+  
+  /* Meal card content */
+  .meal-card-content {
+    padding: var(--spacing-6);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .meal-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+  }
+  
+  .meal-card-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+    flex: 1;
+  }
+  
+  /* Nutrition summary in meal cards */
+  .meal-nutrition-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .nutrition-item-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-sm);
+  }
+  
+  .nutrition-label-compact {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  .nutrition-value-compact {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-mono);
+  }
+  
+  /* ==========================================================================
+     FOOD SEARCH RESULT CARDS
+     ========================================================================== */
+  
+  .food-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-5);
+    transition: var(--transition-fast);
+    position: relative;
+  }
+  
+  .food-card:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  .food-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .food-card-info {
+    flex: 1;
+    min-width: 0; /* Prevent flex item from overflowing */
+  }
+  
+  .food-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-1);
+    line-height: var(--line-height-tight);
+  }
+  
+  .food-card-brand {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .food-card-stores {
+    display: flex;
+    gap: var(--spacing-1);
+    flex-wrap: wrap;
+  }
+  
+  .store-indicator {
+    display: inline-block;
+    padding: var(--spacing-0-5) var(--spacing-2);
+    background-color: var(--color-gray-100);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .store-indicator.new-world { background-color: #fee2e2; color: #dc2626; }
+  .store-indicator.paknsave { background-color: #fef3c7; color: #d97706; }
+  .store-indicator.countdown { background-color: #dcfce7; color: #16a34a; }
+  .store-indicator.freshchoice { background-color: #dbeafe; color: #2563eb; }
+  
+  /* Nutrition grid for food cards */
+  .food-nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-4);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border-light);
+  }
+  
+  .nutrition-stat {
+    text-align: center;
+  }
+  
+  .nutrition-stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .nutrition-stat-value {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+  }
+  
+  .nutrition-stat-unit {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-left: var(--spacing-1);
+  }
+  
+  /* ==========================================================================
+     PROFILE CARDS
+     ========================================================================== */
+  
+  .profile-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+  }
+  
+  .profile-card:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-50);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .profile-card.active {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-100);
+    box-shadow: var(--shadow-primary);
+  }
+  
+  .profile-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .profile-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  
+  .profile-card-menu {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: var(--spacing-1);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-colors);
+  }
+  
+  .profile-card-menu:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-background-hover);
+  }
+  
+  .profile-card-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-4);
+    line-height: var(--line-height-relaxed);
+  }
+  
+  .profile-card-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3);
+  }
+  
+  .profile-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-sm);
+  }
+  
+  .profile-stat-label {
+    color: var(--color-text-secondary);
+  }
+  
+  .profile-stat-value {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+  
+  /* ==========================================================================
+     STORE SELECTION CARDS
+     ========================================================================== */
+  
+  .store-card {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+  
+  .store-card:hover {
+    border-color: var(--color-primary-light);
+    background-color: var(--color-primary-50);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .store-card.selected {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-100);
+    box-shadow: var(--shadow-primary);
+  }
+  
+  .store-card-checkbox {
+    position: absolute;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--color-border-dark);
+    background-color: var(--color-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+  }
+  
+  .store-card.selected .store-card-checkbox {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-inverse);
+  }
+  
+  .store-card-checkbox::after {
+    content: "✓";
+    opacity: 0;
+    transition: var(--transition-fast);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .store-card.selected .store-card-checkbox::after {
+    opacity: 1;
+  }
+  
+  .store-card-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    flex-shrink: 0;
+  }
+  
+  .store-card-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .store-card-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .store-card-address {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-1);
+    line-height: var(--line-height-normal);
+  }
+  
+  .store-card-distance {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  /* ==========================================================================
+     QUICK STATS CARDS
+     ========================================================================== */
+  
+  .stat-card,
+  .stat-item {
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-primary-50) 100%);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    text-align: center;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stat-card:hover,
+  .stat-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  
+  .stat-number {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: var(--spacing-2);
+    font-family: var(--font-mono);
+  }
+  
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  /* ==========================================================================
+     FEATURE TAGS AND BADGES
+     ========================================================================== */
+  
+  .card-features {
+    display: flex;
+    gap: var(--spacing-2);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-4);
+  }
+  
+  .feature-tag {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-3);
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  .feature-tag.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success-dark);
+  }
+  
+  .feature-tag.warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning-dark);
+  }
+  
+  .feature-tag.info {
+    background-color: var(--color-info-light);
+    color: var(--color-info-dark);
+  }
+  
+  /* ==========================================================================
+     CARD ANIMATIONS AND EFFECTS
+     ========================================================================== */
+  
+  /* Shimmer loading effect */
+  .card-loading {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-loading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  /* Favorite star animation */
+  .favorite-star {
+    position: absolute;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+    color: var(--color-warning);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    opacity: 0.3;
+  }
+  
+  .favorite-star.active {
+    opacity: 1;
+    animation: starPulse 0.3s ease-in-out;
+  }
+  
+  @keyframes starPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+  
+  /* ==========================================================================
+     RESPONSIVE CARD LAYOUTS
+     ========================================================================== */
+  
+  /* Card grids */
+  .cards-grid {
+    display: grid;
+    gap: var(--grid-gap);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .cards-grid-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  .cards-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .cards-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .cards-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .card {
+      padding: var(--spacing-4);
+      margin-bottom: var(--spacing-3);
+    }
+    
+    .primary-card {
+      padding: var(--spacing-6);
+      min-height: 250px;
+    }
+    
+    .primary-card .card-icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-3);
+    }
+    
+    .primary-card h3 {
+      font-size: var(--font-size-xl);
+    }
+    
+    .secondary-card {
+      padding: var(--spacing-4);
+      flex-direction: column;
+      text-align: center;
+      gap: var(--spacing-3);
+    }
+    
+    .meal-card-image {
+      height: 160px;
+    }
+    
+    .meal-card-content {
+      padding: var(--spacing-4);
+    }
+    
+    .food-nutrition-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-2);
+    }
+    
+    .cards-grid {
+      gap: var(--spacing-4);
+    }
+    
+    .cards-grid-2,
+    .cards-grid-3,
+    .cards-grid-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Tablet adjustments */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .cards-grid-3,
+    .cards-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* ==========================================================================
+     DARK THEME ADJUSTMENTS
+     ========================================================================== */
+  
+  [data-theme="dark"] {
+    .card {
+      background-color: var(--color-background-secondary);
+      border-color: var(--color-border);
+    }
+    
+    .primary-card {
+      background: linear-gradient(135deg, var(--color-background-secondary) 0%, var(--color-background-tertiary) 100%);
+    }
+    
+    .primary-card::before {
+      background: linear-gradient(135deg, transparent 0%, var(--color-primary-800) 100%);
+    }
+    
+    .secondary-card {
+      background-color: var(--color-background-secondary);
+    }
+    
+    .secondary-card:hover {
+      background-color: var(--color-background-tertiary);
+    }
+    
+    .meal-type-badge {
+      background: rgba(0, 0, 0, 0.8);
+      color: var(--color-text-inverse);
+    }
+    
+    .store-indicator {
+      background-color: var(--color-background-tertiary);
+      color: var(--color-text-secondary);
+    }
+    
+    .stat-card,
+    .stat-item {
+      background: linear-gradient(135deg, var(--color-background-secondary) 0%, var(--color-background-tertiary) 100%);
+    }
+    
+    .feature-tag {
+      background-color: var(--color-primary-800);
+      color: var(--color-primary-200);
+    }
+  }
+  
+  /* ==========================================================================
+     HIGH CONTRAST MODE
+     ========================================================================== */
+  
+  @media (prefers-contrast: high) {
+    .card {
+      border-width: 2px;
+    }
+    
+    .primary-card,
+    .secondary-card {
+      border-width: 3px;
+    }
+    
+    .card:hover {
+      border-width: 3px;
+    }
+    
+    .feature-tag,
+    .store-indicator {
+      border: 1px solid currentColor;
+    }
+  }
+  
+  /* ==========================================================================
+     REDUCED MOTION PREFERENCES
+     ========================================================================== */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .primary-card,
+    .secondary-card,
+    .meal-card,
+    .food-card,
+    .profile-card,
+    .store-card {
+      transition: none;
+    }
+    
+    .card:hover,
+    .primary-card:hover,
+    .secondary-card:hover,
+    .meal-card:hover,
+    .food-card:hover,
+    .profile-card:hover,
+    .store-card:hover {
+      transform: none;
+    }
+    
+    .card-loading::before {
+      animation: none;
+    }
+    
+    .favorite-star.active {
+      animation: none;
+    }
+  }

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner - NutriSearch</title>
+    <meta name="description" content="Create custom meal plans based on your nutritional requirements and dietary preferences. Smart meal planning for New Zealand.">
+    <meta name="keywords" content="meal planner, nutrition, diet planning, New Zealand, healthy meals, custom meal plans">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥝</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🥝 NutriSearch</h1>
+                <p>Meal Planner</p>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="nutritional-search.html">Search</a>
+                <a href="settings.html">Settings</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h2>Plan Your Meals</h2>
+            
+            <div class="planner-controls">
+                <div class="control-table">
+                    <div class="control-row">
+                        <div class="control-cell">
+                            <label for="loadProfile">Load Profile</label>
+                            <select id="loadProfile" aria-describedby="profile-help">
+                                <option value="">Select Profile...</option>
+                                <option value="keto">Keto</option>
+                                <option value="vlcd">VLCD</option>
+                                <option value="mediterranean">Mediterranean</option>
+                                <option value="low-fodmap">Low FODMAP</option>
+                            </select>
+                            <small id="profile-help" class="sr-only">Load a saved nutritional profile to filter meals</small>
+                        </div>
+                        
+                        <div class="control-cell">
+                            <label for="mealTypeDropdown">Meals Selector</label>
+                            <div class="meals-selector-container">
+                                <select id="mealTypeDropdown" aria-describedby="meal-type-help">
+                                    <option value="">All Meal Types</option>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="snack">Snacks</option>
+                                </select>
+                                <div class="meal-checkboxes" role="group" aria-labelledby="meal-types-label">
+                                    <span id="meal-types-label" class="sr-only">Select meal types to include</span>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="breakfast" checked aria-describedby="meal-type-help"> Breakfast
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="lunch" checked> Lunch
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="dinner" checked> Dinner
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="snack" checked> Snacks
+                                    </label>
+                                </div>
+                                <small id="meal-type-help" class="sr-only">Check the meal types you want to include in your plan</small>
+                            </div>
+                        </div>
+                        
+                        <div class="control-cell">
+                            <button class="btn-secondary full-width" onclick="showNutritionalSearchModal()" aria-describedby="nutrition-search-help">Nutritional Search</button>
+                            <small id="nutrition-search-help" class="sr-only">Open advanced nutritional criteria search</small>
+                        </div>
+                    </div>
+                    
+                    <div class="control-row">
+                        <div class="control-cell">
+                            <label for="timeFrame">Time Frame</label>
+                            <select id="timeFrame" aria-describedby="timeframe-help">
+                                <option value="1-day">1 Day</option>
+                                <option value="3-days">3 Days</option>
+                                <option value="5-days">5 Days</option>
+                                <option value="1-week">1 Week</option>
+                                <option value="2-weeks">2 Weeks</option>
+                                <option value="4-weeks">4 Weeks</option>
+                            </select>
+                            <small id="timeframe-help" class="sr-only">Select how many days to plan meals for</small>
+                        </div>
+                        
+                        <div class="control-cell">
+                            <label for="dietaryRequirements">Dietary Requirements</label>
+                            <select id="dietaryRequirements" aria-describedby="dietary-help">
+                                <option value="">All</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="gluten-free">Gluten Free</option>
+                                <option value="dairy-free">Dairy Free</option>
+                                <option value="keto">Keto</option>
+                                <option value="paleo">Paleo</option>
+                            </select>
+                            <small id="dietary-help" class="sr-only">Filter meals by dietary requirements</small>
+                        </div>
+                        
+                        <div class="control-cell">
+                            <button class="btn-secondary full-width" onclick="showMealsPlannerModal()" aria-describedby="meals-list-help">Meals List / Planner</button>
+                            <small id="meals-list-help" class="sr-only">View and manage your saved meals</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary generate-btn" onclick="generateMeals()">Generate Meal Plan</button>
+            </div>
+
+            <div class="meals-grid" id="mealsGrid" role="region" aria-label="Generated meal suggestions">
+                <!-- Meal cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Nutritional Search Modal -->
+    <div id="nutritionalSearchModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Nutritional Search</h3>
+                <button class="close" onclick="closeNutritionalSearchModal()" aria-label="Close nutritional search modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="nutritional-search-content">
+                    <div class="search-filters">
+                        <div class="filter-header">
+                            <h4>Nutritional Criteria</h4>
+                            <button class="btn-secondary" onclick="saveAsProfile()">Save as Profile</button>
+                        </div>
+                        
+                        <div class="nutrition-table">
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Calories (kcal)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Calories amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="calories" aria-label="Toggle calories min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Max</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Protein (g)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Protein amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="protein" checked aria-label="Toggle protein min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Min</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Carbs (g)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Carbs amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="carbs" aria-label="Toggle carbs min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Max</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Fat (g)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Fat amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="fat" aria-label="Toggle fat min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Max</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Sugar (g)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Sugar amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="sugar" aria-label="Toggle sugar min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Max</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Fiber (g)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Fiber amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="fiber" checked aria-label="Toggle fiber min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Min</span>
+                                </div>
+                            </div>
+                            <div class="nutrition-row">
+                                <span class="nutrition-label">Sodium (mg)</span>
+                                <input type="number" class="nutrition-input" placeholder="0" min="0" aria-label="Sodium amount">
+                                <div class="toggle-switch-container">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="toggle-input" data-nutrient="sodium" aria-label="Toggle sodium min/max">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-text">Max</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary search-btn" onclick="searchNutrition()">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meals Planner Modal -->
+    <div id="mealsPlannerModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Saved Meals</h3>
+                <button class="close" onclick="closeMealsPlannerModal()" aria-label="Close meals planner modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="planner-tabs" role="tablist">
+                    <button class="tab-btn active" onclick="showPlannerTab('list')" role="tab" aria-selected="true" aria-controls="listView">List View</button>
+                    <button class="tab-btn" onclick="showPlannerTab('calendar')" role="tab" aria-selected="false" aria-controls="calendarView">Calendar View</button>
+                </div>
+                
+                <div id="listView" class="planner-view" role="tabpanel" aria-labelledby="list-tab">
+                    <div class="saved-meals-list">
+                        <!-- Saved meals will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="calendarView" class="planner-view" style="display: none;" role="tabpanel" aria-labelledby="calendar-tab">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button onclick="previousWeek()" aria-label="Previous week">&lt;</button>
+                            <h4 id="weekDisplay">Week of June 6, 2025</h4>
+                            <button onclick="nextWeek()" aria-label="Next week">&gt;</button>
+                        </div>
+                        <div class="calendar-grid" role="grid" aria-label="Weekly meal calendar">
+                            <!-- Calendar will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NutriSearch. Empowering healthier food choices in New Zealand.</p>
+        </div>
+    </footer>
+
+    <script src="../scripts/common.js"></script>
+    <script src="../scripts/meal-planner.js"></script>
+</body>
+</html>

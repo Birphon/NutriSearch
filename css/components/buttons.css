@@ -1,0 +1,682 @@
+/* ==========================================================================
+   NutriSearch Button Components
+   Comprehensive button system with variants, sizes, and states
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE BUTTON STYLES
+   ========================================================================== */
+
+   .btn,
+   button,
+   input[type="button"],
+   input[type="submit"],
+   input[type="reset"] {
+     /* Base structure */
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     gap: var(--spacing-2);
+     
+     /* Typography */
+     font-family: var(--font-primary);
+     font-size: var(--font-size-base);
+     font-weight: var(--button-font-weight);
+     line-height: var(--line-height-normal);
+     text-align: center;
+     text-decoration: none;
+     white-space: nowrap;
+     
+     /* Spacing and sizing */
+     height: var(--button-height);
+     padding: var(--button-padding);
+     border-radius: var(--button-border-radius);
+     
+     /* Visual styling */
+     border: 1px solid transparent;
+     background-color: var(--color-gray-100);
+     color: var(--color-text-primary);
+     box-shadow: var(--shadow-sm);
+     
+     /* Interactions */
+     cursor: pointer;
+     transition: var(--transition-fast);
+     user-select: none;
+     
+     /* Accessibility */
+     outline: none;
+     position: relative;
+     overflow: hidden;
+   }
+   
+   /* Focus states for accessibility */
+   .btn:focus,
+   button:focus,
+   input[type="button"]:focus,
+   input[type="submit"]:focus,
+   input[type="reset"]:focus {
+     outline: 2px solid var(--color-primary);
+     outline-offset: 2px;
+     z-index: var(--z-index-10);
+   }
+   
+   /* Remove focus outline for mouse users */
+   .btn:focus:not(:focus-visible),
+   button:focus:not(:focus-visible),
+   input:focus:not(:focus-visible) {
+     outline: none;
+   }
+   
+   /* Disabled state */
+   .btn:disabled,
+   .btn.disabled,
+   button:disabled,
+   input:disabled {
+     opacity: 0.6;
+     cursor: not-allowed;
+     pointer-events: none;
+     box-shadow: none;
+   }
+   
+   /* ==========================================================================
+      BUTTON VARIANTS
+      ========================================================================== */
+   
+   /* Primary Button - Main action button */
+   .btn-primary {
+     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+     color: var(--color-text-inverse);
+     border-color: var(--color-primary-dark);
+     box-shadow: var(--shadow-primary);
+   }
+   
+   .btn-primary:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-800) 100%);
+     box-shadow: var(--shadow-primary-lg);
+     transform: translateY(-1px);
+   }
+   
+   .btn-primary:active:not(:disabled) {
+     transform: translateY(0);
+     box-shadow: var(--shadow-sm);
+   }
+   
+   /* Secondary Button - Supporting actions */
+   .btn-secondary {
+     background-color: var(--color-background);
+     color: var(--color-text-primary);
+     border-color: var(--color-border-dark);
+     box-shadow: var(--shadow-sm);
+   }
+   
+   .btn-secondary:hover:not(:disabled) {
+     background-color: var(--color-background-hover);
+     border-color: var(--color-primary);
+     color: var(--color-primary);
+     box-shadow: var(--shadow-md);
+   }
+   
+   .btn-secondary:active:not(:disabled) {
+     background-color: var(--color-background-active);
+   }
+   
+   /* Success Button - Positive actions */
+   .btn-success {
+     background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
+     color: var(--color-text-inverse);
+     border-color: var(--color-success-dark);
+     box-shadow: var(--shadow-success);
+   }
+   
+   .btn-success:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-success-dark) 0%, #15803d 100%);
+     transform: translateY(-1px);
+   }
+   
+   /* Warning Button - Cautionary actions */
+   .btn-warning {
+     background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-dark) 100%);
+     color: var(--color-text-inverse);
+     border-color: var(--color-warning-dark);
+     box-shadow: var(--shadow-warning);
+   }
+   
+   .btn-warning:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-warning-dark) 0%, #b45309 100%);
+     transform: translateY(-1px);
+   }
+   
+   /* Danger Button - Destructive actions */
+   .btn-danger {
+     background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error-dark) 100%);
+     color: var(--color-text-inverse);
+     border-color: var(--color-error-dark);
+     box-shadow: var(--shadow-error);
+   }
+   
+   .btn-danger:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-error-dark) 0%, #b91c1c 100%);
+     transform: translateY(-1px);
+   }
+   
+   /* Ghost Button - Minimal styling */
+   .btn-ghost {
+     background-color: transparent;
+     color: var(--color-text-secondary);
+     border-color: transparent;
+     box-shadow: none;
+   }
+   
+   .btn-ghost:hover:not(:disabled) {
+     background-color: var(--color-background-hover);
+     color: var(--color-text-primary);
+   }
+   
+   /* Link Button - Text-like button */
+   .btn-link {
+     background-color: transparent;
+     color: var(--color-text-link);
+     border-color: transparent;
+     box-shadow: none;
+     padding: var(--spacing-1) var(--spacing-2);
+     height: auto;
+     text-decoration: underline;
+     text-underline-offset: 2px;
+   }
+   
+   .btn-link:hover:not(:disabled) {
+     color: var(--color-text-link-hover);
+     background-color: transparent;
+   }
+   
+   /* ==========================================================================
+      BUTTON SIZES
+      ========================================================================== */
+   
+   /* Small Button */
+   .btn-small,
+   .btn-sm {
+     height: var(--button-height-sm);
+     padding: var(--button-padding-sm);
+     font-size: var(--font-size-sm);
+     border-radius: var(--radius-base);
+   }
+   
+   /* Large Button */
+   .btn-large,
+   .btn-lg {
+     height: var(--button-height-lg);
+     padding: var(--button-padding-lg);
+     font-size: var(--font-size-lg);
+     font-weight: var(--font-weight-semibold);
+   }
+   
+   /* Extra Large Button - Hero CTAs */
+   .btn-xl {
+     height: 3.5rem;
+     padding: var(--spacing-5) var(--spacing-8);
+     font-size: var(--font-size-xl);
+     font-weight: var(--font-weight-semibold);
+     border-radius: var(--radius-xl);
+   }
+   
+   /* Full Width Button */
+   .btn-full,
+   .full-width {
+     width: 100%;
+     justify-content: center;
+   }
+   
+   /* ==========================================================================
+      BUTTON GROUPS
+      ========================================================================== */
+   
+   .btn-group {
+     display: inline-flex;
+     align-items: center;
+     gap: var(--spacing-2);
+   }
+   
+   .btn-group .btn:not(:last-child) {
+     margin-right: calc(var(--spacing-2) * -1);
+   }
+   
+   /* Connected button group */
+   .btn-group-connected {
+     display: inline-flex;
+     align-items: center;
+   }
+   
+   .btn-group-connected .btn {
+     border-radius: 0;
+     margin-left: -1px;
+     position: relative;
+     z-index: var(--z-index-10);
+   }
+   
+   .btn-group-connected .btn:first-child {
+     border-top-left-radius: var(--button-border-radius);
+     border-bottom-left-radius: var(--button-border-radius);
+     margin-left: 0;
+   }
+   
+   .btn-group-connected .btn:last-child {
+     border-top-right-radius: var(--button-border-radius);
+     border-bottom-right-radius: var(--button-border-radius);
+   }
+   
+   .btn-group-connected .btn:hover,
+   .btn-group-connected .btn:focus {
+     z-index: var(--z-index-20);
+   }
+   
+   /* ==========================================================================
+      ICON BUTTONS
+      ========================================================================== */
+   
+   /* Button with icon */
+   .btn-icon {
+     display: inline-flex;
+     align-items: center;
+     gap: var(--spacing-2);
+   }
+   
+   .btn-icon .icon {
+     font-size: 1.2em;
+     line-height: 1;
+   }
+   
+   /* Icon-only button */
+   .btn-icon-only {
+     width: var(--button-height);
+     height: var(--button-height);
+     padding: 0;
+     justify-content: center;
+   }
+   
+   .btn-icon-only.btn-small {
+     width: var(--button-height-sm);
+     height: var(--button-height-sm);
+   }
+   
+   .btn-icon-only.btn-large {
+     width: var(--button-height-lg);
+     height: var(--button-height-lg);
+   }
+   
+   /* Round icon button */
+   .btn-round {
+     border-radius: var(--radius-full);
+   }
+   
+   /* ==========================================================================
+      SPECIAL BUTTON TYPES
+      ========================================================================== */
+   
+   /* Theme Toggle Button */
+   .theme-toggle {
+     background-color: var(--color-background-secondary);
+     color: var(--color-text-secondary);
+     border: 1px solid var(--color-border);
+     border-radius: var(--radius-full);
+     width: 2.5rem;
+     height: 2.5rem;
+     padding: 0;
+     font-size: var(--font-size-lg);
+     transition: var(--transition-fast);
+   }
+   
+   .theme-toggle:hover:not(:disabled) {
+     background-color: var(--color-primary-100);
+     color: var(--color-primary);
+     transform: rotate(180deg);
+   }
+   
+   /* Close Button */
+   .close {
+     background: none;
+     border: none;
+     color: var(--color-text-muted);
+     font-size: var(--font-size-2xl);
+     line-height: 1;
+     padding: var(--spacing-1);
+     cursor: pointer;
+     transition: var(--transition-colors);
+     border-radius: var(--radius-sm);
+   }
+   
+   .close:hover:not(:disabled) {
+     color: var(--color-text-primary);
+     background-color: var(--color-background-hover);
+   }
+   
+   /* Tab Button */
+   .tab-btn {
+     background: none;
+     border: none;
+     color: var(--color-text-secondary);
+     padding: var(--spacing-3) var(--spacing-4);
+     border-bottom: 2px solid transparent;
+     cursor: pointer;
+     transition: var(--transition-colors);
+     font-weight: var(--font-weight-medium);
+   }
+   
+   .tab-btn:hover:not(:disabled) {
+     color: var(--color-text-primary);
+     border-bottom-color: var(--color-border-dark);
+   }
+   
+   .tab-btn.active {
+     color: var(--color-primary);
+     border-bottom-color: var(--color-primary);
+   }
+   
+   /* ==========================================================================
+      NUTRITION-SPECIFIC BUTTONS
+      ========================================================================== */
+   
+   /* Generate Button - Primary action in meal planner */
+   .generate-btn {
+     background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+     color: var(--color-text-primary);
+     border-color: var(--color-accent-dark);
+     font-weight: var(--font-weight-semibold);
+     box-shadow: var(--shadow-lg);
+     min-width: 200px;
+   }
+   
+   .generate-btn:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-secondary) 100%);
+     transform: translateY(-2px);
+     box-shadow: var(--shadow-xl);
+   }
+   
+   /* Search Button - For nutritional search */
+   .search-btn {
+     background: linear-gradient(135deg, var(--color-info) 0%, var(--color-info-dark) 100%);
+     color: var(--color-text-inverse);
+     border-color: var(--color-info-dark);
+     font-weight: var(--font-weight-medium);
+     min-width: 120px;
+   }
+   
+   .search-btn:hover:not(:disabled) {
+     background: linear-gradient(135deg, var(--color-info-dark) 0%, #1d4ed8 100%);
+     transform: translateY(-1px);
+   }
+   
+   /* Store Selection Button */
+   .store-btn {
+     background-color: var(--color-background);
+     border: 2px solid var(--color-border);
+     padding: var(--spacing-4);
+     border-radius: var(--radius-lg);
+     transition: var(--transition-fast);
+     text-align: left;
+     width: 100%;
+     height: auto;
+     min-height: 4rem;
+   }
+   
+   .store-btn:hover:not(:disabled) {
+     border-color: var(--color-primary);
+     background-color: var(--color-primary-50);
+     transform: translateY(-2px);
+     box-shadow: var(--shadow-md);
+   }
+   
+   .store-btn.selected {
+     border-color: var(--color-primary);
+     background-color: var(--color-primary-100);
+     color: var(--color-primary-dark);
+   }
+   
+   /* Feature Tag Buttons */
+   .feature-tag {
+     display: inline-block;
+     padding: var(--spacing-1) var(--spacing-3);
+     background-color: var(--color-primary-100);
+     color: var(--color-primary-dark);
+     border-radius: var(--radius-full);
+     font-size: var(--font-size-xs);
+     font-weight: var(--font-weight-medium);
+     text-transform: uppercase;
+     letter-spacing: var(--letter-spacing-wide);
+     border: none;
+     cursor: default;
+   }
+   
+   .feature-tag.interactive {
+     cursor: pointer;
+     transition: var(--transition-colors);
+   }
+   
+   .feature-tag.interactive:hover {
+     background-color: var(--color-primary);
+     color: var(--color-text-inverse);
+   }
+   
+   /* Store Badge */
+   .store-badge {
+     display: inline-block;
+     padding: var(--spacing-1-5) var(--spacing-3);
+     background-color: var(--color-gray-100);
+     color: var(--color-text-secondary);
+     border-radius: var(--radius-base);
+     font-size: var(--font-size-sm);
+     font-weight: var(--font-weight-medium);
+     border: 1px solid var(--color-border);
+     margin: var(--spacing-1);
+   }
+   
+   /* ==========================================================================
+      BUTTON ANIMATIONS & EFFECTS
+      ========================================================================== */
+   
+   /* Loading state */
+   .btn-loading {
+     position: relative;
+     color: transparent;
+     pointer-events: none;
+   }
+   
+   .btn-loading::after {
+     content: "";
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 1rem;
+     height: 1rem;
+     border: 2px solid transparent;
+     border-top: 2px solid currentColor;
+     border-radius: var(--radius-full);
+     animation: spin 1s linear infinite;
+   }
+   
+   @keyframes spin {
+     to {
+       transform: translate(-50%, -50%) rotate(360deg);
+     }
+   }
+   
+   /* Pulse effect for attention-grabbing buttons */
+   .btn-pulse {
+     animation: pulse 2s ease-in-out infinite;
+   }
+   
+   @keyframes pulse {
+     0%, 100% {
+       box-shadow: 0 0 0 0 rgba(74, 124, 89, 0.4);
+     }
+     50% {
+       box-shadow: 0 0 0 10px rgba(74, 124, 89, 0);
+     }
+   }
+   
+   /* Ripple effect on click */
+   .btn-ripple {
+     position: relative;
+     overflow: hidden;
+   }
+   
+   .btn-ripple::before {
+     content: "";
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     width: 0;
+     height: 0;
+     border-radius: var(--radius-full);
+     background: rgba(255, 255, 255, 0.3);
+     transform: translate(-50%, -50%);
+     transition: width 0.3s ease, height 0.3s ease;
+   }
+   
+   .btn-ripple:active::before {
+     width: 300px;
+     height: 300px;
+   }
+   
+   /* ==========================================================================
+      RESPONSIVE BUTTON ADJUSTMENTS
+      ========================================================================== */
+   
+   @media (max-width: 768px) {
+     /* Make buttons more touch-friendly on mobile */
+     .btn,
+     button,
+     input[type="button"],
+     input[type="submit"],
+     input[type="reset"] {
+       min-height: 44px; /* iOS accessibility requirement */
+       padding: var(--spacing-3) var(--spacing-4);
+     }
+     
+     .btn-small {
+       min-height: 36px;
+     }
+     
+     .btn-large {
+       min-height: 52px;
+     }
+     
+     /* Stack button groups vertically on mobile */
+     .btn-group {
+       flex-direction: column;
+       width: 100%;
+     }
+     
+     .btn-group .btn {
+       width: 100%;
+       margin-right: 0;
+       margin-bottom: var(--spacing-2);
+     }
+     
+     .btn-group .btn:last-child {
+       margin-bottom: 0;
+     }
+     
+     /* Full width buttons on mobile for better UX */
+     .btn-mobile-full {
+       width: 100%;
+     }
+   }
+   
+   /* ==========================================================================
+      DARK THEME ADJUSTMENTS
+      ========================================================================== */
+   
+   [data-theme="dark"] {
+     /* Adjust button styles for dark theme */
+     .btn-secondary {
+       background-color: var(--color-background-secondary);
+       border-color: var(--color-border);
+     }
+     
+     .btn-secondary:hover:not(:disabled) {
+       background-color: var(--color-background-hover);
+     }
+     
+     .btn-ghost:hover:not(:disabled) {
+       background-color: var(--color-background-hover);
+     }
+     
+     .theme-toggle {
+       background-color: var(--color-background-tertiary);
+       border-color: var(--color-border);
+     }
+     
+     .store-btn {
+       background-color: var(--color-background-secondary);
+       border-color: var(--color-border);
+     }
+     
+     .store-btn:hover:not(:disabled) {
+       background-color: var(--color-background-tertiary);
+     }
+     
+     .feature-tag {
+       background-color: var(--color-primary-800);
+       color: var(--color-primary-200);
+     }
+     
+     .store-badge {
+       background-color: var(--color-background-tertiary);
+       border-color: var(--color-border);
+     }
+   }
+   
+   /* ==========================================================================
+      HIGH CONTRAST MODE
+      ========================================================================== */
+   
+   @media (prefers-contrast: high) {
+     .btn,
+     button,
+     input[type="button"],
+     input[type="submit"],
+     input[type="reset"] {
+       border-width: 2px;
+       font-weight: var(--font-weight-bold);
+     }
+     
+     .btn:focus,
+     button:focus,
+     input:focus {
+       outline: 3px solid currentColor;
+       outline-offset: 3px;
+     }
+   }
+   
+   /* ==========================================================================
+      REDUCED MOTION PREFERENCES
+      ========================================================================== */
+   
+   @media (prefers-reduced-motion: reduce) {
+     .btn,
+     button,
+     input {
+       transition: none;
+     }
+     
+     .btn:hover:not(:disabled) {
+       transform: none;
+     }
+     
+     .btn-pulse {
+       animation: none;
+     }
+     
+     .btn-loading::after {
+       animation: none;
+       content: "⏳";
+       border: none;
+       font-size: var(--font-size-base);
+     }
+     
+     .theme-toggle:hover:not(:disabled) {
+       transform: none;
+     }
+   }

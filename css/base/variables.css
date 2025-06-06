@@ -1,0 +1,430 @@
+/* ==========================================================================
+   NutriSearch CSS Variables
+   Design System for Smart Nutrition Planning Application
+   ========================================================================== */
+
+   :root {
+    /* ==========================================================================
+       COLOR PALETTE - Nature-Inspired Theme
+       ========================================================================== */
+    
+    /* Primary Brand Colors - Kiwi & Nature Greens */
+    --color-primary: #4a7c59;           /* Deep forest green */
+    --color-primary-light: #6b9b7a;     /* Lighter forest green */
+    --color-primary-dark: #2d4a35;      /* Darker forest green */
+    --color-primary-50: #f0f7f2;        /* Very light green tint */
+    --color-primary-100: #d4e8da;       /* Light green tint */
+    --color-primary-200: #a8d1b5;       /* Medium light green */
+    --color-primary-300: #7cba90;       /* Medium green */
+    --color-primary-400: #50a36b;       /* Medium dark green */
+    --color-primary-500: #4a7c59;       /* Primary green */
+    --color-primary-600: #3e6349;       /* Dark green */
+    --color-primary-700: #314a39;       /* Darker green */
+    --color-primary-800: #253129;       /* Very dark green */
+    --color-primary-900: #181819;       /* Almost black green */
+  
+    /* Secondary Colors - Earth Tones */
+    --color-secondary: #8b7355;         /* Warm earth brown */
+    --color-secondary-light: #a68b6b;   /* Light earth brown */
+    --color-secondary-dark: #6b5940;    /* Dark earth brown */
+    
+    /* Accent Colors - Kiwi Fruit Inspired */
+    --color-accent: #a8b96a;            /* Kiwi flesh green */
+    --color-accent-light: #c4d08a;      /* Light kiwi green */
+    --color-accent-dark: #8c9a54;       /* Dark kiwi green */
+    
+    /* Neutral Colors - Clean & Fresh */
+    --color-white: #ffffff;
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #e5e5e5;
+    --color-gray-300: #d4d4d4;
+    --color-gray-400: #a3a3a3;
+    --color-gray-500: #737373;
+    --color-gray-600: #525252;
+    --color-gray-700: #404040;
+    --color-gray-800: #262626;
+    --color-gray-900: #171717;
+    --color-black: #000000;
+  
+    /* ==========================================================================
+       SEMANTIC COLORS - Contextual Usage
+       ========================================================================== */
+    
+    /* Background Colors */
+    --color-background: var(--color-white);
+    --color-background-secondary: var(--color-gray-50);
+    --color-background-tertiary: var(--color-primary-50);
+    --color-background-hover: var(--color-gray-100);
+    --color-background-active: var(--color-primary-100);
+    
+    /* Text Colors */
+    --color-text-primary: var(--color-gray-900);
+    --color-text-secondary: var(--color-gray-600);
+    --color-text-muted: var(--color-gray-500);
+    --color-text-inverse: var(--color-white);
+    --color-text-link: var(--color-primary);
+    --color-text-link-hover: var(--color-primary-dark);
+    
+    /* Border Colors */
+    --color-border: var(--color-gray-200);
+    --color-border-light: var(--color-gray-100);
+    --color-border-dark: var(--color-gray-300);
+    --color-border-focus: var(--color-primary);
+    
+    /* Status Colors */
+    --color-success: #22c55e;
+    --color-success-light: #bbf7d0;
+    --color-success-dark: #16a34a;
+    --color-warning: #f59e0b;
+    --color-warning-light: #fef3c7;
+    --color-warning-dark: #d97706;
+    --color-error: #ef4444;
+    --color-error-light: #fecaca;
+    --color-error-dark: #dc2626;
+    --color-info: #3b82f6;
+    --color-info-light: #dbeafe;
+    --color-info-dark: #2563eb;
+  
+    /* ==========================================================================
+       DARK THEME COLORS
+       ========================================================================== */
+    
+    /* Dark Mode Overrides */
+    --color-dark-background: #0f1419;
+    --color-dark-background-secondary: #1a1f2e;
+    --color-dark-background-tertiary: #232937;
+    --color-dark-background-hover: #2a3441;
+    --color-dark-background-active: #343e4b;
+    
+    --color-dark-text-primary: #f8fafc;
+    --color-dark-text-secondary: #cbd5e1;
+    --color-dark-text-muted: #94a3b8;
+    --color-dark-text-inverse: var(--color-gray-900);
+    
+    --color-dark-border: #374151;
+    --color-dark-border-light: #2d3748;
+    --color-dark-border-dark: #4a5568;
+    
+    --color-dark-primary: #6b9b7a;
+    --color-dark-primary-light: #8db49c;
+    --color-dark-primary-dark: #4a7c59;
+  
+    /* ==========================================================================
+       TYPOGRAPHY
+       ========================================================================== */
+    
+    /* Font Families */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    --font-secondary: 'Inter', system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+    --font-size-5xl: 3rem;       /* 48px */
+    --font-size-6xl: 3.75rem;    /* 60px */
+    
+    /* Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+    
+    /* Letter Spacing */
+    --letter-spacing-tighter: -0.05em;
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0em;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+  
+    /* ==========================================================================
+       SPACING SYSTEM
+       ========================================================================== */
+    
+    /* Base spacing unit (4px) */
+    --spacing-0: 0;
+    --spacing-px: 1px;
+    --spacing-0-5: 0.125rem;   /* 2px */
+    --spacing-1: 0.25rem;      /* 4px */
+    --spacing-1-5: 0.375rem;   /* 6px */
+    --spacing-2: 0.5rem;       /* 8px */
+    --spacing-2-5: 0.625rem;   /* 10px */
+    --spacing-3: 0.75rem;      /* 12px */
+    --spacing-3-5: 0.875rem;   /* 14px */
+    --spacing-4: 1rem;         /* 16px */
+    --spacing-5: 1.25rem;      /* 20px */
+    --spacing-6: 1.5rem;       /* 24px */
+    --spacing-7: 1.75rem;      /* 28px */
+    --spacing-8: 2rem;         /* 32px */
+    --spacing-9: 2.25rem;      /* 36px */
+    --spacing-10: 2.5rem;      /* 40px */
+    --spacing-11: 2.75rem;     /* 44px */
+    --spacing-12: 3rem;        /* 48px */
+    --spacing-14: 3.5rem;      /* 56px */
+    --spacing-16: 4rem;        /* 64px */
+    --spacing-20: 5rem;        /* 80px */
+    --spacing-24: 6rem;        /* 96px */
+    --spacing-28: 7rem;        /* 112px */
+    --spacing-32: 8rem;        /* 128px */
+    --spacing-36: 9rem;        /* 144px */
+    --spacing-40: 10rem;       /* 160px */
+    --spacing-44: 11rem;       /* 176px */
+    --spacing-48: 12rem;       /* 192px */
+    --spacing-52: 13rem;       /* 208px */
+    --spacing-56: 14rem;       /* 224px */
+    --spacing-60: 15rem;       /* 240px */
+    --spacing-64: 16rem;       /* 256px */
+    --spacing-72: 18rem;       /* 288px */
+    --spacing-80: 20rem;       /* 320px */
+    --spacing-96: 24rem;       /* 384px */
+  
+    /* ==========================================================================
+       BORDER RADIUS
+       ========================================================================== */
+    
+    --radius-none: 0px;
+    --radius-sm: 0.125rem;      /* 2px */
+    --radius-base: 0.25rem;     /* 4px */
+    --radius-md: 0.375rem;      /* 6px */
+    --radius-lg: 0.5rem;        /* 8px */
+    --radius-xl: 0.75rem;       /* 12px */
+    --radius-2xl: 1rem;         /* 16px */
+    --radius-3xl: 1.5rem;       /* 24px */
+    --radius-full: 9999px;      /* Full circle */
+  
+    /* ==========================================================================
+       SHADOWS
+       ========================================================================== */
+    
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    --shadow-none: 0 0 #0000;
+    
+    /* Colored shadows for brand elements */
+    --shadow-primary: 0 4px 14px 0 rgb(74 124 89 / 0.15);
+    --shadow-primary-lg: 0 10px 25px 0 rgb(74 124 89 / 0.2);
+    --shadow-success: 0 4px 14px 0 rgb(34 197 94 / 0.15);
+    --shadow-warning: 0 4px 14px 0 rgb(245 158 11 / 0.15);
+    --shadow-error: 0 4px 14px 0 rgb(239 68 68 / 0.15);
+  
+    /* ==========================================================================
+       Z-INDEX LAYERS
+       ========================================================================== */
+    
+    --z-index-auto: auto;
+    --z-index-0: 0;
+    --z-index-10: 10;
+    --z-index-20: 20;
+    --z-index-30: 30;
+    --z-index-40: 40;
+    --z-index-50: 50;
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+    --z-index-toast: 1080;
+  
+    /* ==========================================================================
+       BREAKPOINTS - Mobile First Approach
+       ========================================================================== */
+    
+    --breakpoint-xs: 20rem;      /* 320px */
+    --breakpoint-sm: 24rem;      /* 384px */
+    --breakpoint-md: 28rem;      /* 448px */
+    --breakpoint-lg: 32rem;      /* 512px */
+    --breakpoint-xl: 36rem;      /* 576px */
+    --breakpoint-2xl: 42rem;     /* 672px */
+    --breakpoint-3xl: 48rem;     /* 768px */
+    --breakpoint-4xl: 56rem;     /* 896px */
+    --breakpoint-5xl: 64rem;     /* 1024px */
+    --breakpoint-6xl: 72rem;     /* 1152px */
+    --breakpoint-7xl: 80rem;     /* 1280px */
+  
+    /* ==========================================================================
+       TRANSITIONS & ANIMATIONS
+       ========================================================================== */
+    
+    /* Timing Functions */
+    --ease-linear: cubic-bezier(0, 0, 1, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Duration */
+    --duration-75: 75ms;
+    --duration-100: 100ms;
+    --duration-150: 150ms;
+    --duration-200: 200ms;
+    --duration-300: 300ms;
+    --duration-500: 500ms;
+    --duration-700: 700ms;
+    --duration-1000: 1000ms;
+    
+    /* Common transitions */
+    --transition-fast: all var(--duration-150) var(--ease-out);
+    --transition-base: all var(--duration-200) var(--ease-out);
+    --transition-slow: all var(--duration-300) var(--ease-out);
+    --transition-colors: color var(--duration-150) var(--ease-out), background-color var(--duration-150) var(--ease-out), border-color var(--duration-150) var(--ease-out);
+    --transition-transform: transform var(--duration-200) var(--ease-out);
+    --transition-opacity: opacity var(--duration-200) var(--ease-out);
+  
+    /* ==========================================================================
+       COMPONENT-SPECIFIC VARIABLES
+       ========================================================================== */
+    
+    /* Container */
+    --container-max-width: 1200px;
+    --container-padding: var(--spacing-4);
+    --container-padding-sm: var(--spacing-6);
+    --container-padding-lg: var(--spacing-8);
+    
+    /* Header */
+    --header-height: 4rem;
+    --header-height-mobile: 3.5rem;
+    
+    /* Navigation */
+    --nav-link-padding: var(--spacing-3) var(--spacing-4);
+    --nav-link-border-radius: var(--radius-md);
+    
+    /* Buttons */
+    --button-height: 2.5rem;
+    --button-height-sm: 2rem;
+    --button-height-lg: 3rem;
+    --button-padding: var(--spacing-3) var(--spacing-4);
+    --button-padding-sm: var(--spacing-2) var(--spacing-3);
+    --button-padding-lg: var(--spacing-4) var(--spacing-6);
+    --button-border-radius: var(--radius-md);
+    --button-font-weight: var(--font-weight-medium);
+    
+    /* Forms */
+    --input-height: 2.5rem;
+    --input-padding: var(--spacing-3) var(--spacing-4);
+    --input-border-width: 1px;
+    --input-border-radius: var(--radius-md);
+    --input-focus-ring-width: 2px;
+    --input-focus-ring-offset: 2px;
+    
+    /* Cards */
+    --card-padding: var(--spacing-6);
+    --card-padding-sm: var(--spacing-4);
+    --card-border-radius: var(--radius-lg);
+    --card-border-width: 1px;
+    
+    /* Modals */
+    --modal-backdrop-opacity: 0.5;
+    --modal-max-width: 32rem;
+    --modal-max-width-lg: 48rem;
+    --modal-padding: var(--spacing-6);
+    --modal-border-radius: var(--radius-xl);
+    
+    /* Grid System */
+    --grid-gap: var(--spacing-6);
+    --grid-gap-sm: var(--spacing-4);
+    --grid-gap-lg: var(--spacing-8);
+    
+    /* Specific to NutriSearch features */
+    --nutrition-grid-columns: repeat(auto-fit, minmax(280px, 1fr));
+    --meal-card-min-width: 280px;
+    --profile-sidebar-width: 300px;
+    --control-grid-gap: var(--spacing-4);
+  }
+  
+  /* ==========================================================================
+     DARK THEME IMPLEMENTATION
+     ========================================================================== */
+  
+  [data-theme="dark"] {
+    --color-background: var(--color-dark-background);
+    --color-background-secondary: var(--color-dark-background-secondary);
+    --color-background-tertiary: var(--color-dark-background-tertiary);
+    --color-background-hover: var(--color-dark-background-hover);
+    --color-background-active: var(--color-dark-background-active);
+    
+    --color-text-primary: var(--color-dark-text-primary);
+    --color-text-secondary: var(--color-dark-text-secondary);
+    --color-text-muted: var(--color-dark-text-muted);
+    --color-text-inverse: var(--color-dark-text-inverse);
+    
+    --color-border: var(--color-dark-border);
+    --color-border-light: var(--color-dark-border-light);
+    --color-border-dark: var(--color-dark-border-dark);
+    
+    --color-primary: var(--color-dark-primary);
+    --color-primary-light: var(--color-dark-primary-light);
+    --color-primary-dark: var(--color-dark-primary-dark);
+    
+    /* Adjust shadows for dark theme */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+  }
+  
+  /* ==========================================================================
+     HIGH CONTRAST MODE SUPPORT
+     ========================================================================== */
+  
+  @media (prefers-contrast: high) {
+    :root {
+      --color-border: var(--color-gray-900);
+      --color-text-secondary: var(--color-gray-800);
+      --shadow-base: 0 2px 4px 0 rgb(0 0 0 / 0.2);
+    }
+    
+    [data-theme="dark"] {
+      --color-border: var(--color-gray-100);
+      --color-text-secondary: var(--color-gray-200);
+    }
+  }
+  
+  /* ==========================================================================
+     REDUCED MOTION SUPPORT
+     ========================================================================== */
+  
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-75: 1ms;
+      --duration-100: 1ms;
+      --duration-150: 1ms;
+      --duration-200: 1ms;
+      --duration-300: 1ms;
+      --duration-500: 1ms;
+      --duration-700: 1ms;
+      --duration-1000: 1ms;
+      
+      --transition-fast: none;
+      --transition-base: none;
+      --transition-slow: none;
+      --transition-colors: none;
+      --transition-transform: none;
+      --transition-opacity: none;
+    }
+  }

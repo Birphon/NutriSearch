@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriSearch - Smart Nutrition Planning</title>
+    <meta name="description" content="Smart nutrition planning for New Zealand. Find foods, plan meals, and discover nearby supermarkets based on your dietary needs.">
+    <meta name="keywords" content="nutrition, meal planning, New Zealand, supermarkets, diet, health, food search">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥝</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>NutriSearch</h1>
+                <p>Smart Nutrition Planning for New Zealand</p>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="hero-section">
+                <h2>Plan Your Perfect Meals</h2>
+                <p>Discover nutritious meals that match your dietary needs and local store availability</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="primary-actions">
+                    <div class="primary-card" onclick="navigateTo('pages/meal-planner.html')" role="button" tabindex="0" aria-label="Navigate to Meal Planner">
+                        <div class="card-icon large">🍽️</div>
+                        <h3>Meal Planner</h3>
+                        <p>Create custom meal plans based on your nutritional requirements and dietary preferences</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Smart Planning</span>
+                            <span class="feature-tag">Custom Profiles</span>
+                        </div>
+                    </div>
+
+                    <div class="primary-card" onclick="navigateTo('pages/nutritional-search.html')" role="button" tabindex="0" aria-label="Navigate to Nutritional Search">
+                        <div class="card-icon large">🔍</div>
+                        <h3>Nutritional Search</h3>
+                        <p>Find foods that match your specific nutritional criteria and dietary goals</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Advanced Filters</span>
+                            <span class="feature-tag">Local Products</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secondary-actions">
+                    <div class="secondary-card" onclick="showLocationModal()" role="button" tabindex="0" aria-label="Set your location">
+                        <div class="card-icon">📍</div>
+                        <div class="card-content">
+                            <h4>Location</h4>
+                            <p>Set your location to find nearby stores</p>
+                        </div>
+                    </div>
+
+                    <div class="secondary-card" onclick="navigateTo('pages/settings.html')" role="button" tabindex="0" aria-label="Navigate to Settings">
+                        <div class="card-icon">⚙️</div>
+                        <div class="card-content">
+                            <h4>Settings</h4>
+                            <p>Manage profiles and preferences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="profileCount">3</div>
+                        <div class="stat-label">Saved Profiles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="mealCount">0</div>
+                        <div class="stat-label">Saved Meals</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="storeCount">0</div>
+                        <div class="stat-label">Selected Stores</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Find Stores Near You</h3>
+                <button class="close" onclick="closeLocationModal()" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="location-search-section">
+                    <div class="search-container">
+                        <label for="locationSearch">Search your location:</label>
+                        <div class="search-input-container">
+                            <input type="text" id="locationSearch" placeholder="e.g., Belfast, Christchurch or Riccarton" autocomplete="off" aria-describedby="search-help">
+                            <div class="search-suggestions" id="searchSuggestions" role="listbox"></div>
+                        </div>
+                        <small id="search-help" class="sr-only">Type to search for New Zealand locations</small>
+                        <button class="btn-primary" onclick="searchStores()">Find Stores</button>
+                    </div>
+                    
+                    <div class="current-location" id="currentLocationDisplay"></div>
+                </div>
+                
+                <div class="stores-section">
+                    <div class="store-tabs" role="tablist">
+                        <button class="tab-btn active" onclick="showStoreTab('all')" role="tab" aria-selected="true">All Stores</button>
+                        <button class="tab-btn" onclick="showStoreTab('newworld')" role="tab" aria-selected="false">New World</button>
+                        <button class="tab-btn" onclick="showStoreTab('paknsave')" role="tab" aria-selected="false">PAK'nSAVE</button>
+                        <button class="tab-btn" onclick="showStoreTab('countdown')" role="tab" aria-selected="false">Countdown</button>
+                        <button class="tab-btn" onclick="showStoreTab('freshchoice')" role="tab" aria-selected="false">FreshChoice</button>
+                    </div>
+                    
+                    <div class="stores-list" id="storesList" role="tabpanel">
+                        <div class="stores-prompt">
+                            <p>🔍 Search for a location above to find nearby stores</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeLocationModal()">Cancel</button>
+                    <button class="btn-primary" onclick="saveSelectedStores()">Save Selection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NutriSearch. Empowering healthier food choices in New Zealand.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/common.js"></script>
+    <script src="scripts/home.js"></script>
+</body>
+</html>
