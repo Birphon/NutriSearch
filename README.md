@@ -56,8 +56,11 @@ This prototype will be used to pitch to major supermarket brands for access to t
 For collaboration or inquiries:
 
 **Developer**: Jared Ireland 
+
 **Email**: jaredireland1205+NutriSearch@gmail.com
+
 *Please include **NutriSearch** in the title of the email*
+
 **Location**: Christchurch, New Zealand
 
 ---
