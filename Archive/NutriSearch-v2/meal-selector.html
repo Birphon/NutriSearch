@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Selector - NutriSearch</title>
+    <link rel="stylesheet" href="meal-selector.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <div class="logo-icon">NS</div>
+                NutriSearch
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="meal-selector.html" class="active">Meal Selector</a></li>
+                <li><a href="food-search.html">Food Search</a></li>
+                <li><a href="profiles.html">Profiles</a></li>
+                <li><a href="meal-planner.html">Weekly Planner</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Meal Selector</h1>
+                <p>Find meals that match your dietary profile and save them to your meal list</p>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label>Load Profile</label>
+                        <select id="profileSelect" onchange="loadProfile()">
+                            <option value="">No profile selected</option>
+                            <option value="vlcd">VLCD (≤800 kcal)</option>
+                            <option value="highprotein">High Protein (2200-2800 kcal)</option>
+                            <option value="lowcarb">Low Carb (1500-2000 kcal)</option>
+                            <option value="keto">Keto (1800-2200 kcal)</option>
+                            <option value="balanced">Balanced Diet (2000-2500 kcal)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Meal Type</label>
+                        <div class="meal-type-buttons">
+                            <button class="meal-type-btn active" data-meal="all" onclick="selectMealType('all')">All</button>
+                            <button class="meal-type-btn" data-meal="breakfast" onclick="selectMealType('breakfast')">Breakfast</button>
+                            <button class="meal-type-btn" data-meal="lunch" onclick="selectMealType('lunch')">Lunch</button>
+                            <button class="meal-type-btn" data-meal="dinner" onclick="selectMealType('dinner')">Dinner</button>
+                            <button class="meal-type-btn" data-meal="snacks" onclick="selectMealType('snacks')">Snacks</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Planning Duration</label>
+                        <div class="duration-buttons">
+                            <button class="duration-btn" data-duration="1" onclick="selectDuration(1)">1 day</button>
+                            <button class="duration-btn" data-duration="3" onclick="selectDuration(3)">3 days</button>
+                            <button class="duration-btn" data-duration="5" onclick="selectDuration(5)">5 days</button>
+                            <button class="duration-btn active" data-duration="7" onclick="selectDuration(7)">1 week</button>
+                            <button class="duration-btn" data-duration="14" onclick="selectDuration(14)">2 weeks</button>
+                            <button class="duration-btn" data-duration="21" onclick="selectDuration(21)">3 weeks</button>
+                            <button class="duration-btn" data-duration="28" onclick="selectDuration(28)">4 weeks</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+                    <button class="btn btn-secondary" onclick="clearFilters()">Clear All</button>
+                </div>
+            </div>
+
+            <div class="results-layout">
+                <div class="meal-results">
+                    <div class="results-header">
+                        <h2>Available Meals</h2>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span class="results-count" id="resultsCount">Showing 5 meals</span>
+                            <select class="sort-select" id="sortSelect" onchange="sortMeals()">
+                                <option value="name">Sort by Name</option>
+                                <option value="calories">Sort by Calories</option>
+                                <option value="protein">Sort by Protein</option>
+                                <option value="match">Profile Match</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="meals-grid" id="mealsGrid">
+                        <!-- Meals will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Active Profile</h3>
+                        <div class="profile-info" id="activeProfile">
+                            <div class="profile-name">No profile selected</div>
+                            <div class="profile-limits">
+                                <div class="profile-limit">
+                                    <span class="limit-name">Select a profile to see limits</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Saved Meal List</h3>
+                        <div class="saved-meals-list" id="savedMealsList">
+                            <div class="empty-state">
+                                No meals saved yet. Save meals from the results to build your list.
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="clearSavedMeals()">
+                            Clear All Saved
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="meal-selector.js"></script>
+</body>
+</html>

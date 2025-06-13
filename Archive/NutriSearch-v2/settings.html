@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - NutriSearch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D5A27;
+            --accent-green: #4A7C59;
+            --light-green: #E8F5E8;
+            --soft-earth: #F5F1E8;
+            --warm-white: #FEFEFE;
+            --text-dark: #2C3E2D;
+            --text-medium: #5A6B5D;
+            --text-light: #8A9B8D;
+            --kiwi-green: #8FBC8F;
+            --shadow-soft: rgba(45, 90, 39, 0.1);
+            --border-light: rgba(45, 90, 39, 0.15);
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary-green: #4A7C59;
+            --accent-green: #6B8E5A;
+            --light-green: #2C3E2D;
+            --soft-earth: #1F2A20;
+            --warm-white: #1A1A1A;
+            --text-dark: #E8F5E8;
+            --text-medium: #B8C8B8;
+            --text-light: #8A9B8D;
+            --kiwi-green: #7AA87A;
+            --shadow-soft: rgba(0, 0, 0, 0.3);
+            --border-light: rgba(116, 160, 116, 0.2);
+        }
+
+        /* Color Blind Friendly Palettes */
+        [data-theme="protanopia"] {
+            --primary-green: #4A7C59;
+            --accent-green: #7A9B6A;
+            --kiwi-green: #8FBC8F;
+            --success: #4A90E2;
+            --warning: #F5A623;
+            --danger: #D0021B;
+        }
+
+        [data-theme="deuteranopia"] {
+            --primary-green: #5A6B7C;
+            --accent-green: #7A8B9C;
+            --kiwi-green: #9CACBC;
+            --success: #4A90E2;
+            --warning: #F5A623;
+            --danger: #D0021B;
+        }
+
+        [data-theme="tritanopia"] {
+            --primary-green: #7C5A6B;
+            --accent-green: #9C7A8B;
+            --kiwi-green: #BC9CAC;
+            --success: #50C878;
+            --warning: #FF6347;
+            --danger: #DC143C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--soft-earth) 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--warm-white);
+            box-shadow: 0 2px 20px var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-green), var(--kiwi-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+        }
+
+        /* Settings Layout */
+        .settings-layout {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .settings-section {
+            background: var(--warm-white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-green), var(--kiwi-green));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        /* Theme Settings */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--light-green);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toggle-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .toggle-description {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-light);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-green);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Color Scheme Options */
+        .color-schemes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .color-scheme {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .color-scheme:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+
+        .color-scheme.active {
+            border-color: var(--primary-green);
+            background: var(--light-green);
+        }
+
+        .scheme-preview {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--warm-white);
+        }
+
+        .scheme-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .scheme-description {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        /* Custom Color Picker */
+        .custom-colors {
+            background: var(--light-green);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .custom-colors h4 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .color-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .color-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .color-input-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-input {
+            width: 50px;
+            height: 40px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .color-text {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Store Locations */
+        .locations-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .add-location-btn {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-location-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .locations-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .location-item {
+            background: var(--light-green);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover {
+            border-color: var(--accent-green);
+            transform: translateX(5px);
+        }
+
+        .location-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .location-info {
+            flex: 1;
+        }
+
+        .location-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.25rem;
+        }
+
+        .location-address {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-chain {
+            display: inline-block;
+            background: var(--accent-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .location-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: var(--warm-white);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        .action-btn.delete {
+            color: var(--danger);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .location-stats {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--warm-white);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-medium);
+            padding: 0.25rem;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-green);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .btn-secondary {
+            background: var(--light-green);
+            color: var(--primary-green);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1001;
+            box-shadow: 0 4px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .success-message.show {
+            display: flex;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .color-schemes {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .locations-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .location-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .location-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <div class="logo-icon">NS</div>
+                NutriSearch
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Meal Selector</a></li>
+                <li><a href="#">Food Search</a></li>
+                <li><a href="#">Profiles</a></li>
+                <li><a href="#" class="active">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your NutriSearch experience and manage your preferences</p>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Theme & Appearance -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <div class="section-icon">🎨</div>
+                        <h2 class="section-title">Theme & Appearance</h2>
+                    </div>
+
+                    <div class="theme-toggle">
+                        <div class="toggle-info">
+                            <div class="toggle-title">Dark Mode</div>
+                            <div class="toggle-description">Switch between light and dark themes</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <h3 style="color: var(--primary-green); margin-bottom: 1rem; font-size: 1.1rem;">Color Accessibility</h3>
+                    <div class="color-schemes">
+                        <div class="color-scheme active" data-scheme="default" onclick="selectColorScheme('default')">
+                            <div class="scheme-preview">
+                                <div class="color-dot" style="background: #2D5A27;"></div>
+                                <div class="color-dot" style="background: #4A7C59;"></div>
+                                <div class="color-dot" style="background: #8FBC8F;"></div>
+                            </div>
+                            <div class="scheme-name">Default</div>
+                            <div class="scheme-description">Standard green theme</div>
+                        </div>
+
+                        <div class="color-scheme" data-scheme="protanopia" onclick="selectColorScheme('protanopia')">
+                            <div class="scheme-preview">
+                                <div class="color-dot" style="background: #4A7C59;"></div>
+                                <div class="color-dot" style="background: #7A9B6A;"></div>
+                                <div class="color-dot" style="background: #8FBC8F;"></div>
+                            </div>
+                            <div class="scheme-name">Protanopia</div>
+                            <div class="scheme-description">Red-blind friendly</div>
+                        </div>
+
+                        <div class="color-scheme" data-scheme="deuteranopia" onclick="selectColorScheme('deuteranopia')">
+                            <div class="scheme-preview">
+                                <div class="color-dot" style="background: #5A6B7C;"></div>
+                                <div class="color-dot" style="background: #7A8B9C;"></div>
+                                <div class="color-dot" style="background: #9CACBC;"></div>
+                            </div>
+                            <div class="scheme-name">Deuteranopia</div>
+                            <div class="scheme-description">Green-blind friendly</div>
+                        </div>
+
+                        <div class="color-scheme" data-scheme="tritanopia" onclick="selectColorScheme('tritanopia')">
+                            <div class="scheme-preview">
+                                <div class="color-dot" style="background: #7C5A6B;"></div>
+                                <div class="color-dot" style="background: #9C7A8B;"></div>
+                                <div class="color-dot" style="background: #BC9CAC;"></div>
+                            </div>
+                            <div class="scheme-name">Tritanopia</div>
+                            <div class="scheme-description">Blue-blind friendly</div>
+                        </div>
+                    </div>
+
+                    <div class="custom-colors">
+                        <h4>Custom Color Scheme</h4>
+                        <div class="color-inputs">
+                            <div class="color-input-group">
+                                <label>Primary Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" class="color-input" id="primaryColor" value="#2D5A27" onchange="updateCustomColor('primary', this.value)">
+                                    <input type="text" class="color-text" id="primaryColorText" value="#2D5A27" onchange="updateCustomColorFromText('primary', this.value)">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Accent Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" class="color-input" id="accentColor" value="#4A7C59" onchange="updateCustomColor('accent', this.value)">
+                                    <input type="text" class="color-text" id="accentColorText" value="#4A7C59" onchange="updateCustomColorFromText('accent', this.value)">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Highlight Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" class="color-input" id="highlightColor" value="#8FBC8F" onchange="updateCustomColor('highlight', this.value)">
+                                    <input type="text" class="color-text" id="highlightColorText" value="#8FBC8F" onchange="updateCustomColorFromText('highlight', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <button class="btn btn-primary" onclick="applyCustomColors()">Apply Custom Colors</button>
+                            <button class="btn btn-secondary" onclick="resetCustomColors()">Reset to Default</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store Locations -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <div class="section-icon">🏪</div>
+                        <h2 class="section-title">Store Locations</h2>
+                    </div>
+
+                    <div class="locations-header">
+                        <div>
+                            <p style="color: var(--text-medium); margin-bottom: 0.5rem;">Manage your preferred shopping locations to get accurate product availability and pricing.</p>
+                        </div>
+                        <button class="add-location-btn" onclick="openAddLocationModal()">+ Add Location</button>
+                    </div>
+
+                    <div class="locations-list" id="locationsList">
+                        <!-- Locations will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Location Modal -->
+    <div class="modal" id="locationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Store Location</h3>
+                <button class="close-btn" onclick="closeLocationModal()">&times;</button>
+            </div>
+            <form id="locationForm">
+                <div class="form-group">
+                    <label for="storeName">Store Name</label>
+                    <input type="text" id="storeName" placeholder="e.g., Countdown Queen Street" required>
+                </div>
+                <div class="form-group">
+                    <label for="storeChain">Store Chain</label>
+                    <select id="storeChain" required>
+                        <option value="">Select chain...</option>
+                        <option value="countdown">Countdown</option>
+                        <option value="newworld">New World</option>
+                        <option value="paknsave">Pak'nSave</option>
+                        <option value="four-square">Four Square</option>
+                        <option value="fresh-choice">FreshChoice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="storeAddress">Address</label>
+                    <input type="text" id="storeAddress" placeholder="e.g., 123 Queen Street, Auckland 1010" required>
+                </div>
+                <div class="form-group">
+                    <label for="storeDistance">Distance from you (km)</label>
+                    <input type="number" id="storeDistance" placeholder="e.g., 2.5" step="0.1" min="0">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeLocationModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Location</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <span>✓</span>
+        <span id="successText">Settings saved successfully!</span>
+    </div>
+
+    <script>
+        // Sample store locations
+        let storeLocations = [
+            {
+                id: 1,
+                name: "Countdown Queen Street",
+                chain: "countdown",
+                address: "123 Queen Street, Auckland 1010",
+                distance: 1.2,
+                products: 1247,
+                lastUpdated: "2 hours ago"
+            },
+            {
+                id: 2,
+                name: "New World Victoria Park",
+                chain: "newworld",
+                address: "8 Wellesley Street West, Auckland 1010",
+                distance: 0.8,
+                products: 892,
+                lastUpdated: "4 hours ago"
+            },
+            {
+                id: 3,
+                name: "Pak'nSave Sylvia Park",
+                chain: "paknsave",
+                address: "286 Mount Wellington Highway, Auckland 1060",
+                distance: 5.3,
+                products: 1563,
+                lastUpdated: "1 hour ago"
+            }
+        ];
+
+        // Settings state
+        let currentTheme = 'light';
+        let currentColorScheme = 'default';
+        let customColors = {
+            primary: '#2D5A27',
+            accent: '#4A7C59',
+            highlight: '#8FBC8F'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            renderStoreLocations();
+            setupLocationForm();
+        });
+
+        // Settings Management
+        function loadSettings() {
+            // Load theme preference
+            const savedTheme = localStorage.getItem('nutrisearch-theme') || 'light';
+            const savedColorScheme = localStorage.getItem('nutrisearch-color-scheme') || 'default';
+            const savedCustomColors = localStorage.getItem('nutrisearch-custom-colors');
+            
+            currentTheme = savedTheme;
+            currentColorScheme = savedColorScheme;
+            
+            if (savedCustomColors) {
+                customColors = JSON.parse(savedCustomColors);
+                updateCustomColorInputs();
+            }
+            
+            // Apply theme
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('darkModeToggle').checked = true;
+            }
+            
+            // Apply color scheme
+            if (currentColorScheme !== 'default') {
+                document.body.setAttribute('data-theme', currentColorScheme);
+            }
+            
+            // Update UI
+            updateColorSchemeSelection();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('nutrisearch-theme', currentTheme);
+            localStorage.setItem('nutrisearch-color-scheme', currentColorScheme);
+            localStorage.setItem('nutrisearch-custom-colors', JSON.stringify(customColors));
+            showSuccessMessage('Settings saved successfully!');
+        }
+
+        // Theme Functions
+        function toggleDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            currentTheme = darkModeToggle.checked ? 'dark' : 'light';
+            
+            if (currentColorScheme === 'default') {
+                document.body.setAttribute('data-theme', currentTheme);
+            }
+            
+            saveSettings();
+        }
+
+        function selectColorScheme(scheme) {
+            currentColorScheme = scheme;
+            
+            // Update UI
+            document.querySelectorAll('.color-scheme').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`[data-scheme="${scheme}"]`).classList.add('active');
+            
+            // Apply theme
+            if (scheme === 'default') {
+                document.body.setAttribute('data-theme', currentTheme);
+            } else {
+                document.body.setAttribute('data-theme', scheme);
+            }
+            
+            saveSettings();
+        }
+
+        function updateColorSchemeSelection() {
+            document.querySelectorAll('.color-scheme').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`[data-scheme="${currentColorScheme}"]`).classList.add('active');
+        }
+
+        // Custom Color Functions
+        function updateCustomColor(type, value) {
+            customColors[type] = value;
+            document.getElementById(`${type}ColorText`).value = value;
+        }
+
+        function updateCustomColorFromText(type, value) {
+            if (isValidColor(value)) {
+                customColors[type] = value;
+                document.getElementById(`${type}Color`).value = value;
+            }
+        }
+
+        function updateCustomColorInputs() {
+            document.getElementById('primaryColor').value = customColors.primary;
+            document.getElementById('primaryColorText').value = customColors.primary;
+            document.getElementById('accentColor').value = customColors.accent;
+            document.getElementById('accentColorText').value = customColors.accent;
+            document.getElementById('highlightColor').value = customColors.highlight;
+            document.getElementById('highlightColorText').value = customColors.highlight;
+        }
+
+        function applyCustomColors() {
+            // Apply custom colors to CSS variables
+            document.documentElement.style.setProperty('--primary-green', customColors.primary);
+            document.documentElement.style.setProperty('--accent-green', customColors.accent);
+            document.documentElement.style.setProperty('--kiwi-green', customColors.highlight);
+            
+            currentColorScheme = 'custom';
+            saveSettings();
+            showSuccessMessage('Custom colors applied successfully!');
+        }
+
+        function resetCustomColors() {
+            customColors = {
+                primary: '#2D5A27',
+                accent: '#4A7C59',
+                highlight: '#8FBC8F'
+            };
+            
+            updateCustomColorInputs();
+            
+            // Reset CSS variables
+            document.documentElement.style.removeProperty('--primary-green');
+            document.documentElement.style.removeProperty('--accent-green');
+            document.documentElement.style.removeProperty('--kiwi-green');
+            
+            currentColorScheme = 'default';
+            selectColorScheme('default');
+            showSuccessMessage('Colors reset to default!');
+        }
+
+        function isValidColor(color) {
+            const style = new Option().style;
+            style.color = color;
+            return style.color !== '';
+        }
+
+        // Store Location Functions
+        function renderStoreLocations() {
+            const locationsList = document.getElementById('locationsList');
+            
+            if (storeLocations.length === 0) {
+                locationsList.innerHTML = `
+                    <div style="text-align: center; color: var(--text-light); padding: 3rem;">
+                        <h3 style="margin-bottom: 1rem;">No store locations added yet</h3>
+                        <p>Add your preferred shopping locations to get accurate product availability and pricing.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            locationsList.innerHTML = storeLocations.map(location => `
+                <div class="location-item">
+                    <div class="location-header">
+                        <div class="location-info">
+                            <div class="location-name">${location.name}</div>
+                            <div class="location-address">${location.address}</div>
+                            <div class="location-chain">${formatChainName(location.chain)}</div>
+                        </div>
+                        <div class="location-actions">
+                            <button class="action-btn" onclick="editLocation(${location.id})" title="Edit">✎</button>
+                            <button class="action-btn delete" onclick="deleteLocation(${location.id})" title="Delete">×</button>
+                        </div>
+                    </div>
+                    <div class="location-stats">
+                        <div class="stat">
+                            <span>📍</span>
+                            <span>${location.distance}km away</span>
+                        </div>
+                        <div class="stat">
+                            <span>📦</span>
+                            <span>${location.products} products</span>
+                        </div>
+                        <div class="stat">
+                            <span>🕒</span>
+                            <span>Updated ${location.lastUpdated}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatChainName(chain) {
+            const chainNames = {
+                'countdown': 'Countdown',
+                'newworld': 'New World',
+                'paknsave': "Pak'nSave",
+                'four-square': 'Four Square',
+                'fresh-choice': 'FreshChoice'
+            };
+            return chainNames[chain] || chain;
+        }
+
+        function openAddLocationModal() {
+            document.getElementById('locationModal').classList.add('active');
+            document.getElementById('locationForm').reset();
+        }
+
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.remove('active');
+        }
+
+        function setupLocationForm() {
+            document.getElementById('locationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const newLocation = {
+                    id: Date.now(),
+                    name: document.getElementById('storeName').value,
+                    chain: document.getElementById('storeChain').value,
+                    address: document.getElementById('storeAddress').value,
+                    distance: parseFloat(document.getElementById('storeDistance').value) || 0,
+                    products: Math.floor(Math.random() * 1000) + 500, // Simulated
+                    lastUpdated: 'Just now'
+                };
+                
+                storeLocations.push(newLocation);
+                saveStoreLocations();
+                renderStoreLocations();
+                closeLocationModal();
+                showSuccessMessage('Store location added successfully!');
+            });
+        }
+
+        function editLocation(locationId) {
+            const location = storeLocations.find(loc => loc.id === locationId);
+            if (!location) return;
+            
+            // Populate form with existing data
+            document.getElementById('storeName').value = location.name;
+            document.getElementById('storeChain').value = location.chain;
+            document.getElementById('storeAddress').value = location.address;
+            document.getElementById('storeDistance').value = location.distance;
+            
+            // Change modal title and setup for editing
+            document.querySelector('.modal-title').textContent = 'Edit Store Location';
+            document.getElementById('locationModal').classList.add('active');
+            
+            // Update form submission to handle editing
+            const form = document.getElementById('locationForm');
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                
+                location.name = document.getElementById('storeName').value;
+                location.chain = document.getElementById('storeChain').value;
+                location.address = document.getElementById('storeAddress').value;
+                location.distance = parseFloat(document.getElementById('storeDistance').value) || 0;
+                location.lastUpdated = 'Just now';
+                
+                saveStoreLocations();
+                renderStoreLocations();
+                closeLocationModal();
+                showSuccessMessage('Store location updated successfully!');
+                
+                // Reset form handler
+                setupLocationForm();
+                document.querySelector('.modal-title').textContent = 'Add Store Location';
+            };
+        }
+
+        function deleteLocation(locationId) {
+            if (confirm('Are you sure you want to delete this store location?')) {
+                storeLocations = storeLocations.filter(loc => loc.id !== locationId);
+                saveStoreLocations();
+                renderStoreLocations();
+                showSuccessMessage('Store location deleted successfully!');
+            }
+        }
+
+        function saveStoreLocations() {
+            localStorage.setItem('nutrisearch-store-locations', JSON.stringify(storeLocations));
+        }
+
+        function loadStoreLocations() {
+            const savedLocations = localStorage.getItem('nutrisearch-store-locations');
+            if (savedLocations) {
+                storeLocations = JSON.parse(savedLocations);
+            }
+        }
+
+        // Success Message
+        function showSuccessMessage(message) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // Modal Controls
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeLocationModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLocationModal();
+            }
+        });
+
+        // Initialize store locations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStoreLocations();
+        });
+
+        // Export settings function (bonus feature)
+        function exportSettings() {
+            const settings = {
+                theme: currentTheme,
+                colorScheme: currentColorScheme,
+                customColors: customColors,
+                storeLocations: storeLocations,
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'nutrisearch-settings.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showSuccessMessage('Settings exported successfully!');
+        }
+
+        // Import settings function (bonus feature)
+        function importSettings(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const settings = JSON.parse(e.target.result);
+                    
+                    if (settings.theme) currentTheme = settings.theme;
+                    if (settings.colorScheme) currentColorScheme = settings.colorScheme;
+                    if (settings.customColors) customColors = settings.customColors;
+                    if (settings.storeLocations) storeLocations = settings.storeLocations;
+                    
+                    // Apply imported settings
+                    saveSettings();
+                    saveStoreLocations();
+                    loadSettings();
+                    renderStoreLocations();
+                    
+                    showSuccessMessage('Settings imported successfully!');
+                } catch (error) {
+                    alert('Error importing settings: Invalid file format');
+                }
+            };
+            reader.readAsText(file);
+        }

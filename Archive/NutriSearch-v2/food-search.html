@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Item Search - NutriSearch</title>
+    <link rel="stylesheet" href="food-search.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <div class="logo-icon">NS</div>
+                NutriSearch
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="meal-selector.html">Meal Selector</a></li>
+                <li><a href="food-search.html" class="active">Food Search</a></li>
+                <li><a href="profiles.html">Profiles</a></li>
+                <li><a href="meal-planner.html">Weekly Planner</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Food Item Search</h1>
+                <p>Search for specific food items or filter by nutritional criteria</p>
+            </div>
+
+            <div class="view-toggle">
+                <div class="toggle-buttons">
+                    <button class="toggle-btn active" onclick="switchView('search')">Item Search</button>
+                    <button class="toggle-btn" onclick="switchView('filter')">Nutritional Filter</button>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="profile-selector">
+                    <label for="profileSelect">Load Profile for Comparison:</label>
+                    <select id="profileSelect" onchange="loadProfile()">
+                        <option value="">No profile selected</option>
+                        <option value="vlcd">VLCD (≤800 kcal)</option>
+                        <option value="highprotein">High Protein (2200-2800 kcal)</option>
+                        <option value="lowcarb">Low Carb (1500-2000 kcal)</option>
+                        <option value="keto">Keto (1800-2200 kcal)</option>
+                        <option value="balanced">Balanced Diet (2000-2500 kcal)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Item Search View -->
+            <div class="search-view active" id="searchView">
+                <div class="search-section">
+                    <div class="search-input-group">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search for food items..." onkeypress="handleSearchKeyPress(event)">
+                        <button class="search-btn" onclick="searchItems()">Search</button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="searchResults">
+                    <div class="no-results">
+                        Enter a food item name above to search our database
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutritional Filter View -->
+            <div class="filter-view" id="filterView">
+                <div class="filter-controls">
+                    <div class="filter-header">
+                        <h2 class="filter-title">Nutritional Criteria</h2>
+                        <div class="filter-toggles">
+                            <div class="toggle-group">
+                                <button class="toggle-option active" data-type="daily" onclick="toggleFilterType('daily')">Daily</button>
+                                <button class="toggle-option" data-type="meal" onclick="toggleFilterType('meal')">Meal</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nutrients-grid" id="nutrientsGrid">
+                        <!-- Nutrients will be populated by JavaScript -->
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" onclick="applyNutritionalFilter()">Apply Filter</button>
+                        <button class="btn btn-secondary" onclick="clearNutritionalFilter()">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="filterResults">
+                    <div class="no-results">
+                        Set your nutritional criteria above and click "Apply Filter" to find matching foods
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="food-search.js"></script>
+</body>
+</html>

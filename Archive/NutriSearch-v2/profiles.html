@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles - NutriSearch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D5A27;
+            --accent-green: #4A7C59;
+            --light-green: #E8F5E8;
+            --soft-earth: #F5F1E8;
+            --warm-white: #FEFEFE;
+            --text-dark: #2C3E2D;
+            --text-medium: #5A6B5D;
+            --text-light: #8A9B8D;
+            --kiwi-green: #8FBC8F;
+            --shadow-soft: rgba(45, 90, 39, 0.1);
+            --border-light: rgba(45, 90, 39, 0.15);
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--soft-earth) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--warm-white);
+            box-shadow: 0 2px 20px var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-green), var(--kiwi-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+        }
+
+        /* Layout */
+        .profiles-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            min-height: 600px;
+        }
+
+        /* Profile List */
+        .profiles-sidebar {
+            background: var(--warm-white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            height: fit-content;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .add-profile-btn {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .add-profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .profiles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .profile-item {
+            background: var(--light-green);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .profile-item:hover {
+            border-color: var(--accent-green);
+            transform: translateX(5px);
+        }
+
+        .profile-item.active {
+            border-color: var(--primary-green);
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .profile-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-summary {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .profile-actions {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: none;
+            gap: 0.25rem;
+        }
+
+        .profile-item:hover .profile-actions {
+            display: flex;
+        }
+
+        .profile-item.active .profile-actions {
+            display: flex;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 4px;
+            padding: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: white;
+        }
+
+        .action-btn.delete {
+            color: var(--danger);
+        }
+
+        .action-btn.duplicate {
+            color: var(--accent-green);
+        }
+
+        /* Profile Editor */
+        .profile-editor {
+            background: var(--warm-white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            border: 1px solid var(--border-light);
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .editor-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--success), #2ecc71);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light-green);
+            color: var(--primary-green);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Profile Form */
+        .profile-form {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .form-section {
+            background: var(--light-green);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        .nutrients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nutrient-group {
+            background: var(--warm-white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .nutrient-name {
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nutrient-unit {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        .range-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .range-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .range-input label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .range-input input {
+            padding: 0.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .single-input input {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-medium);
+        }
+
+        .empty-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-medium);
+        }
+
+        .empty-description {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: var(--success);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        /* Profile Type Toggle */
+        .profile-type-toggle {
+            display: flex;
+            background: var(--warm-white);
+            border-radius: 8px;
+            padding: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .type-option {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .type-option.active {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .profiles-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .profiles-sidebar {
+                order: 2;
+            }
+            
+            .profile-editor {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nutrients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .range-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .editor-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .editor-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <div class="logo-icon">NS</div>
+                NutriSearch
+            </div>
+            <ul class="nav-links">
+                <li><a href="frontpage.html">Home</a></li>
+                <li><a href="meal_planner.html">Meal Selector</a></li>
+                <li><a href="food_search.html">Food Search</a></li>
+                <li><a href="profiles.html" class="active">Profiles</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Nutritional Profiles</h1>
+                <p>Create and manage custom nutritional profiles for your dietary needs</p>
+            </div>
+
+            <div class="profiles-layout">
+                <!-- Profile List Sidebar -->
+                <div class="profiles-sidebar">
+                    <div class="sidebar-header">
+                        <h2 class="sidebar-title">My Profiles</h2>
+                        <button class="add-profile-btn" onclick="createNewProfile()">+ New</button>
+                    </div>
+                    <div class="profiles-list" id="profilesList">
+                        <!-- Profiles will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Profile Editor -->
+                <div class="profile-editor">
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-icon">P</div>
+                        <h3 class="empty-title">Select a Profile to Edit</h3>
+                        <p class="empty-description">Choose a profile from the list on the left to view and edit its nutritional parameters, or create a new profile to get started.</p>
+                    </div>
+
+                    <div id="editorContent" style="display: none;">
+                        <div class="success-message" id="successMessage">
+                            <span>✓</span>
+                            Profile saved successfully!
+                        </div>
+
+                        <div class="editor-header">
+                            <h2 class="editor-title" id="editorTitle">Edit Profile</h2>
+                            <div class="editor-actions">
+                                <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                                <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                                <button class="btn btn-danger" onclick="deleteProfile()" id="deleteBtn">Delete</button>
+                            </div>
+                        </div>
+
+                        <form class="profile-form" id="profileForm">
+                            <div class="form-section">
+                                <h3 class="section-title">Basic Information</h3>
+                                <div class="form-group">
+                                    <label for="profileName">Profile Name</label>
+                                    <input type="text" id="profileName" placeholder="Enter profile name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileDescription">Description (Optional)</label>
+                                    <textarea id="profileDescription" rows="3" placeholder="Describe this nutritional profile..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Profile Type</label>
+                                    <div class="profile-type-toggle">
+                                        <button type="button" class="type-option active" data-type="daily" onclick="toggleProfileType('daily')">Daily Limits</button>
+                                        <button type="button" class="type-option" data-type="meal" onclick="toggleProfileType('meal')">Per Meal Limits</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3 class="section-title">Nutritional Parameters</h3>
+                                <div class="nutrients-grid" id="nutrientsGrid">
+                                    <!-- Nutrients will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Sample data
+        const defaultProfiles = {
+            vlcd: { 
+                id: 'vlcd',
+                name: 'VLCD (Very Low Calorie Diet)',
+                description: 'Medically supervised very low calorie diet for rapid weight loss',
+                type: 'daily',
+                nutrients: {
+                    calories: { max: 800 },
+                    protein: { min: 70, max: 100 },
+                    carbs: { min: 50, max: 100 },
+                    fat: { min: 15, max: 20 },
+                    saturatedFat: { max: 5 },
+                    sugar: { max: 25 },
+                    sodium: { max: 2300 },
+                    fiber: { min: 25 }
+                }
+            },
+            highprotein: { 
+                id: 'highprotein',
+                name: 'High Protein (Gym Focused)',
+                description: 'High protein diet for muscle building and athletic performance',
+                type: 'daily',
+                nutrients: {
+                    calories: { min: 2200, max: 2800 },
+                    protein: { min: 150, max: 200 },
+                    carbs: { min: 200, max: 300 },
+                    fat: { min: 60, max: 80 },
+                    saturatedFat: { max: 20 },
+                    sugar: { max: 50 },
+                    sodium: { max: 3000 },
+                    fiber: { min: 30 }
+                }
+            },
+            lowcarb: { 
+                id: 'lowcarb',
+                name: 'Low Carb Diet',
+                description: 'Low carbohydrate diet for weight management',
+                type: 'daily',
+                nutrients: {
+                    calories: { min: 1500, max: 2000 },
+                    protein: { min: 100, max: 150 },
+                    carbs: { min: 20, max: 50 },
+                    fat: { min: 100, max: 150 },
+                    saturatedFat: { max: 40 },
+                    sugar: { max: 15 },
+                    sodium: { max: 2300 },
+                    fiber: { min: 20 }
+                }
+            },
+            keto: { 
+                id: 'keto',
+                name: 'Ketogenic Diet',
+                description: 'Very low carb, high fat diet for ketosis',
+                type: 'daily',
+                nutrients: {
+                    calories: { min: 1800, max: 2200 },
+                    protein: { min: 80, max: 120 },
+                    carbs: { min: 5, max: 20 },
+                    fat: { min: 150, max: 180 },
+                    saturatedFat: { max: 60 },
+                    sugar: { max: 10 },
+                    sodium: { max: 2300 },
+                    fiber: { min: 25 }
+                }
+            },
+            balanced: { 
+                id: 'balanced',
+                name: 'Balanced Diet',
+                description: 'Well-balanced nutritional profile for general health',
+                type: 'daily',
+                nutrients: {
+                    calories: { min: 2000, max: 2500 },
+                    protein: { min: 100, max: 150 },
+                    carbs: { min: 200, max: 280 },
+                    fat: { min: 50, max: 85 },
+                    saturatedFat: { max: 25 },
+                    sugar: { max: 40 },
+                    sodium: { max: 2300 },
+                    fiber: { min: 25 }
+                }
+            }
+        };
+
+        const nutrients = [
+            { key: 'calories', name: 'Calories', unit: 'kcal' },
+            { key: 'protein', name: 'Protein', unit: 'g' },
+            { key: 'carbs', name: 'Carbohydrates', unit: 'g' },
+            { key: 'fat', name: 'Fat', unit: 'g' },
+            { key: 'saturatedFat', name: 'Saturated Fat', unit: 'g' },
+            { key: 'sugar', name: 'Sugar', unit: 'g' },
+            { key: 'sodium', name: 'Sodium', unit: 'mg' },
+            { key: 'fiber', name: 'Fiber', unit: 'g' }
+        ];
+
+        // State
+        let profiles = { ...defaultProfiles };
+        let currentProfile = null;
+        let isEditing = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateNutrientInputs();
+            renderProfilesList();
+        });
+
+        function renderProfilesList() {
+            const profilesList = document.getElementById('profilesList');
+            
+            if (Object.keys(profiles).length === 0) {
+                profilesList.innerHTML = `
+                    <div style="text-align: center; color: var(--text-light); padding: 2rem;">
+                        <p>No profiles created yet.</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Click "New" to create your first profile.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            profilesList.innerHTML = Object.values(profiles).map(profile => `
+                <div class="profile-item ${currentProfile?.id === profile.id ? 'active' : ''}" onclick="selectProfile('${profile.id}')">
+                    <div class="profile-name">${profile.name}</div>
+                    <div class="profile-summary">${profile.type === 'daily' ? 'Daily' : 'Per Meal'} • ${profile.nutrients.calories.min || 0}-${profile.nutrients.calories.max || '∞'} kcal</div>
+                    <div class="profile-actions">
+                        <button class="action-btn duplicate" onclick="event.stopPropagation(); duplicateProfile('${profile.id}')" title="Duplicate">⧉</button>
+                        <button class="action-btn delete" onclick="event.stopPropagation(); confirmDeleteProfile('${profile.id}')" title="Delete">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectProfile(profileId) {
+            currentProfile = profiles[profileId];
+            isEditing = true;
+            
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('editorContent').style.display = 'block';
+            
+            populateEditor();
+            renderProfilesList();
+        }
+
+        function populateEditor() {
+            if (!currentProfile) return;
+            
+            document.getElementById('editorTitle').textContent = `Edit ${currentProfile.name}`;
+            document.getElementById('profileName').value = currentProfile.name;
+            document.getElementById('profileDescription').value = currentProfile.description || '';
+            
+            // Set profile type
+            document.querySelectorAll('.type-option').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === currentProfile.type);
+            });
+            
+            // Populate nutrient values
+            nutrients.forEach(nutrient => {
+                const nutrientData = currentProfile.nutrients[nutrient.key] || {};
+                const minInput = document.getElementById(`${nutrient.key}Min`);
+                const maxInput = document.getElementById(`${nutrient.key}Max`);
+                
+                if (minInput) minInput.value = nutrientData.min || '';
+                if (maxInput) maxInput.value = nutrientData.max || '';
+            });
+        }
+
+        function generateNutrientInputs() {
+            const nutrientsGrid = document.getElementById('nutrientsGrid');
+            
+            nutrientsGrid.innerHTML = nutrients.map(nutrient => `
+                <div class="nutrient-group">
+                    <div class="nutrient-name">
+                        ${nutrient.name}
+                        <span class="nutrient-unit">${nutrient.unit}</span>
+                    </div>
+                    <div class="range-inputs">
+                        <div class="range-input">
+                            <label for="${nutrient.key}Min">Minimum</label>
+                            <input type="number" id="${nutrient.key}Min" min="0" step="0.1" placeholder="0">
+                        </div>
+                        <div class="range-input">
+                            <label for="${nutrient.key}Max">Maximum</label>
+                            <input type="number" id="${nutrient.key}Max" min="0" step="0.1" placeholder="No limit">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleProfileType(type) {
+            document.querySelectorAll('.type-option').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === type);
+            });
+        }
+
+        function createNewProfile() {
+            const newId = 'profile_' + Date.now();
+            const newProfile = {
+                id: newId,
+                name: 'New Profile',
+                description: '',
+                type: 'daily',
+                nutrients: {}
+            };
+            
+            profiles[newId] = newProfile;
+            currentProfile = newProfile;
+            isEditing = true;
+            
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('editorContent').style.display = 'block';
+            
+            populateEditor();
+            renderProfilesList();
+            
+            // Focus on name input
+            document.getElementById('profileName').focus();
+            document.getElementById('profileName').select();
+        }
+
+        function duplicateProfile(profileId) {
+            const originalProfile = profiles[profileId];
+            const newId = 'profile_' + Date.now();
+            const duplicatedProfile = {
+                ...originalProfile,
+                id: newId,
+                name: originalProfile.name + ' (Copy)',
+                nutrients: { ...originalProfile.nutrients }
+            };
+            
+            profiles[newId] = duplicatedProfile;
+            renderProfilesList();
+        }
+
+        function confirmDeleteProfile(profileId) {
+            if (confirm('Are you sure you want to delete this profile? This action cannot be undone.')) {
+                delete profiles[profileId];
+                
+                if (currentProfile?.id === profileId) {
+                    currentProfile = null;
+                    document.getElementById('emptyState').style.display = 'block';
+                    document.getElementById('editorContent').style.display = 'none';
+                }
+                
+                renderProfilesList();
+            }
+        }
+
+        function deleteProfile() {
+            if (currentProfile) {
+                confirmDeleteProfile(currentProfile.id);
+            }
+        }
+
+        function saveProfile() {
+            if (!currentProfile) return;
+            
+            // Validate required fields
+            const name = document.getElementById('profileName').value.trim();
+            if (!name) {
+                alert('Please enter a profile name.');
+                return;
+            }
+            
+            // Update profile data
+            currentProfile.name = name;
+            currentProfile.description = document.getElementById('profileDescription').value.trim();
+            currentProfile.type = document.querySelector('.type-option.active').dataset.type;
+            
+            // Update nutrients
+            currentProfile.nutrients = {};
+            nutrients.forEach(nutrient => {
+                const minValue = parseFloat(document.getElementById(`${nutrient.key}Min`).value);
+                const maxValue = parseFloat(document.getElementById(`${nutrient.key}Max`).value);
+                
+                const nutrientData = {};
+                if (!isNaN(minValue)) nutrientData.min = minValue;
+                if (!isNaN(maxValue)) nutrientData.max = maxValue;
+                
+                if (Object.keys(nutrientData).length > 0) {
+                    currentProfile.nutrients[nutrient.key] = nutrientData;
+                }
+            });
+            
+            // Show success message
+            showSuccessMessage();
+            
+            // Re-render the profiles list to reflect changes
+            renderProfilesList();
+        }
+
+        function cancelEdit() {
+            if (currentProfile && profiles[currentProfile.id]) {
+                // Restore original values
+                populateEditor();
+            } else {
+                // If it's a new profile that hasn't been saved, remove it
+                if (currentProfile && !profiles[currentProfile.id]) {
+                    delete profiles[currentProfile.id];
+                }
+                
+                currentProfile = null;
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('editorContent').style.display = 'none';
+                renderProfilesList();
+            }
+        }
+
+        function showSuccessMessage() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 's') {
+                    e.preventDefault();
+                    if (isEditing && currentProfile) {
+                        saveProfile();
+                    }
+                }
+                if (e.key === 'n') {
+                    e.preventDefault();
+                    createNewProfile();
+                }
+            }
+            
+            if (e.key === 'Escape') {
+                if (isEditing) {
+                    cancelEdit();
+                }
+            }
+        });
+
+        // Auto-save on input (debounced)
+        let autoSaveTimeout;
+        function setupAutoSave() {
+            const inputs = document.querySelectorAll('#profileForm input, #profileForm textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    clearTimeout(autoSaveTimeout);
+                    autoSaveTimeout = setTimeout(() => {
+                        if (currentProfile && isEditing) {
+                            // Only auto-save if profile name is not empty
+                            const name = document.getElementById('profileName').value.trim();
+                            if (name) {
+                                saveProfile();
+                            }
+                        }
+                    }, 2000); // Auto-save after 2 seconds of inactivity
+                });
+            });
+        }
+
+        // Initialize auto-save when editor is shown
+        function initializeEditor() {
+            setupAutoSave();
+        }
+
+        // Call initialize when showing editor content
+        const originalSelectProfile = selectProfile;
+        selectProfile = function(profileId) {
+            originalSelectProfile(profileId);
+            initializeEditor();
+        };
+
+        const originalCreateNewProfile = createNewProfile;
+        createNewProfile = function() {
+            originalCreateNewProfile();
+            initializeEditor();
+        };

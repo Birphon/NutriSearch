@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriSearch - Smart Nutrition for New Zealand</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <div class="logo-icon">NS</div>
+                NutriSearch
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="meal-selector.html" >Meal Selector</a></li>
+                <li><a href="food-search.html">Food Search</a></li>
+                <li><a href="profiles.html">Profiles</a></li>
+                <li><a href="meal-planner.html">Weekly Planner</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Smart Nutrition Planning for New Zealand</h1>
+                <p>Discover nutrition information from local supermarket chains, plan your meals with precision, and achieve your health goals with confidence.</p>
+                <a href="meal-selector.html" class="cta-button" data-analytics="hero-cta">Get Started Today</a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Everything You Need for Smarter Nutrition</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Meal Planner</h3>
+                        <p>Create personalized meal plans with precise nutritional tracking and profile-based filtering.</p>
+                        <ul class="feature-list">
+                            <li>Load custom nutritional profiles</li>
+                            <li>Plan meals for 1 day to 4 weeks</li>
+                            <li>Track Breakfast, Lunch, Dinner & Snacks</li>
+                            <li>Save meals to your personal list</li>
+                            <li>View daily macro breakdowns</li>
+                            <li>Weekly planner with nutritional summaries</li>
+                        </ul>
+                        <a href="meal-selector.html" class="feature-link">Try Meal Planner →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>Food Item Search</h3>
+                        <p>Find foods that match your dietary requirements with advanced filtering and nutritional analysis.</p>
+                        <ul class="feature-list">
+                            <li>Set minimum and maximum nutrient values</li>
+                            <li>Toggle between daily and per-meal limits</li>
+                            <li>Search by specific food items</li>
+                            <li>View detailed nutritional information</li>
+                            <li>Filter for low-carb, high-protein, VLCD</li>
+                            <li>Real-time supermarket data integration</li>
+                        </ul>
+                        <a href="food-search.html" class="feature-link">Search Foods →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>Custom Profiles</h3>
+                        <p>Create and manage nutritional profiles tailored to your specific dietary needs and health goals.</p>
+                        <ul class="feature-list">
+                            <li>Build profiles for daily or per-meal limits</li>
+                            <li>Edit and update profiles as needed</li>
+                            <li>Pre-built templates for common diets</li>
+                            <li>VLCD, Keto, High-Protein options</li>
+                            <li>Quick-load profiles in meal planner</li>
+                            <li>Track calories, macros, and micronutrients</li>
+                        </ul>
+                        <a href="profiles.html" class="feature-link">Manage Profiles →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profiles" class="profile-examples">
+            <div class="container">
+                <h2>Example Nutritional Profiles</h2>
+                <p>Get started quickly with these common dietary profile templates, or create your own custom profile to match your specific needs.</p>
+                <div class="profile-grid">
+                    <div class="profile-card" data-profile="vlcd">
+                        <h3>Very Low Calorie Diet (VLCD)</h3>
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-name">Calories</span>
+                                <span class="stat-value">≤800 kcal</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Protein</span>
+                                <span class="stat-value">70–100 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Fat</span>
+                                <span class="stat-value">15–20 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Saturated Fat</span>
+                                <span class="stat-value">≤5 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Carbohydrate</span>
+                                <span class="stat-value">50–100 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sugars</span>
+                                <span class="stat-value">≤20–25 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sodium</span>
+                                <span class="stat-value">≤2,300 mg</span>
+                            </div>
+                        </div>
+                        <button class="profile-select-btn" data-profile-id="vlcd">Select This Profile</button>
+                    </div>
+
+                    <div class="profile-card" data-profile="high-protein">
+                        <h3>High Protein (Gym Focused)</h3>
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-name">Calories</span>
+                                <span class="stat-value">2200–2800 kcal</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Protein</span>
+                                <span class="stat-value">150–200 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Fat</span>
+                                <span class="stat-value">60–80 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Saturated Fat</span>
+                                <span class="stat-value">≤20 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Carbohydrate</span>
+                                <span class="stat-value">200–300 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sugars</span>
+                                <span class="stat-value">≤50 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sodium</span>
+                                <span class="stat-value">≤3,000 mg</span>
+                            </div>
+                        </div>
+                        <button class="profile-select-btn" data-profile-id="high-protein">Select This Profile</button>
+                    </div>
+
+                    <div class="profile-card" data-profile="low-carb">
+                        <h3>Low Carb Diet</h3>
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-name">Calories</span>
+                                <span class="stat-value">1500–2000 kcal</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Protein</span>
+                                <span class="stat-value">100–150 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Fat</span>
+                                <span class="stat-value">100–150 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Saturated Fat</span>
+                                <span class="stat-value">≤40 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Carbohydrate</span>
+                                <span class="stat-value">≤50 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sugars</span>
+                                <span class="stat-value">≤15 g</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-name">Sodium</span>
+                                <span class="stat-value">≤2,300 mg</span>
+                            </div>
+                        </div>
+                        <button class="profile-select-btn" data-profile-id="low-carb">Select This Profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works">
+            <div class="container">
+                <h2>How NutriSearch Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Create Your Profile</h3>
+                        <p>Set up your nutritional goals and dietary requirements with our easy profile builder or choose from pre-made templates.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Search & Plan</h3>
+                        <p>Use our advanced search to find foods that match your criteria, then add them to your meal planner for the week ahead.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Track & Optimize</h3>
+                        <p>Monitor your daily nutritional intake with detailed breakdowns and adjust your meals to stay on track with your goals.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Shop Smart</h3>
+                        <p>Get real-time information from New Zealand supermarket chains to make informed decisions about your food purchases.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3>Ready to Transform Your Nutrition?</h3>
+                <p>Join thousands of New Zealanders making smarter food choices with NutriSearch</p>
+                <a href="meal-selector.html" class="cta-button" data-analytics="footer-cta">Start Your Journey</a>
+            </div>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#support">Support</a>
+                <a href="#about">About Us</a>
+                <a href="#api">API Documentation</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NutriSearch. Made with care for New Zealand's health and wellness community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading indicator for better UX -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
